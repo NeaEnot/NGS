@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<documentation>
+	<members name="Vector">
+		<Vector>
+			<summary>
+				Двумерный вектор.
+			</summary>
+		</Vector>
+		<Vx>
+			<summary>
+				Значение вектора по оси x.
+			</summary>
+		</Vx>
+		<Vy>
+			<summary>
+				Значение вектора по оси y.
+			</summary>
+		</Vy>
+	</members>
+	<members name="Body">
+		<Body>
+			<summary>
+				Физическое тело.
+			</summary>
+		</Body>
+		<Id>
+			<summary>
+				Уникальный номер тела.
+			</summary>
+		</Id>
+		<X>
+			<summary>
+				X-координата тела.
+			</summary>
+		</X>
+		<Y>
+			<summary>
+				Y-координата тела.
+			</summary>
+		</Y>
+		<D>
+			<summary>
+				Диаметр тела.
+			</summary>
+		</D>
+		<Mass>
+			<summary>
+				Масса тела.
+			</summary>
+		</Mass>
+		<Velocity>
+			<summary>
+				Вектор скорости тела.
+			</summary>
+		</Velocity>
+		<ColorHex>
+			<summary>
+				Шестнадцатеричное обозначение цвета.
+			</summary>
+		</ColorHex>
+	</members>
+</documentation>
