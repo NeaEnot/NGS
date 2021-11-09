@@ -77,7 +77,20 @@
 			<param name="g">
 				Гравитационная постоянная.
 			</param>
+			<param name="name">
+				Название вселенной.
+			</param>
 		</Constructor>
+		<Id>
+			<summary>
+				Уникальный номер вселенной.
+			</summary>
+		</Id>
+		<Name>
+			<summary>
+				Название вселенной.
+			</summary>
+		</Name>
 		<Bodies>
 			<summary>
 				Список существующих во вселенной тел.

@@ -5,15 +5,21 @@ namespace Physics
     /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Universe/*'/>
     public class Universe
     {
+        /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Id/*'/>
+        public string Id { get; set; }
+        /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Name/*'/>
+        public string Name { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Bodies/*'/>
         public List<Body> Bodies { get; private set; }
-        public double g;
+
+        private double g;
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Constructor/*'/>
-        public Universe(double g)
+        public Universe(double g, string name)
         {
             Bodies = new List<Body>();
             this.g = g;
+            Name = name;
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Update/*'/>
