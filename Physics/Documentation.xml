@@ -16,6 +16,11 @@
 				Значение вектора по оси y.
 			</summary>
 		</Vy>
+		<operatorPlus>
+			<summary>
+				Возвращает новый вектор, вычисленный путём сложения каждой из компонент двух векторов.
+			</summary>
+		</operatorPlus>
 	</members>
 	<members name="Body">
 		<Body>
@@ -58,5 +63,30 @@
 				Шестнадцатеричное обозначение цвета.
 			</summary>
 		</ColorHex>
+	</members>
+	<members name="Universe">
+		<Universe>
+			<summary>
+				Модель вселенной.
+			</summary>
+		</Universe>
+		<Constructor>
+			<summary>
+				Конструктор, создающий вселенную с заданной гравитационной постоянной.
+			</summary>
+			<param name="g">
+				Гравитационная постоянная.
+			</param>
+		</Constructor>
+		<Bodies>
+			<summary>
+				Список существующих во вселенной тел.
+			</summary>
+		</Bodies>
+		<Update>
+			<summary>
+				Обновляет состояние вселенной - изменяет положение тел и векторы их скоростей.
+			</summary>
+		</Update>
 	</members>
 </documentation>

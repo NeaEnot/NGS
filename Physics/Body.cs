@@ -7,9 +7,9 @@
         public string Id { get; set; }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/X/*'/>
-        public ulong X { get; set; }
+        public long X { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/Y/*'/>
-        public ulong Y { get; set; }
+        public long Y { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/D/*'/>
         public byte D { get; set; }
 
