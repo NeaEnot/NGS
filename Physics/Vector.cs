@@ -17,5 +17,10 @@
                 Vy = v1.Vy + v2.Vy
             };
         }
+
+        public override string ToString()
+        {
+            return Vx + "; " + Vy;
+        }
     }
 }

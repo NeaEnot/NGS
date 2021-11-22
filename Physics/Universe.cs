@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Physics
 {
@@ -9,16 +10,16 @@ namespace Physics
         public string Id { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Name/*'/>
         public string Name { get; set; }
+        /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/G/*'/>
+        public double G { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Bodies/*'/>
         public List<Body> Bodies { get; private set; }
 
-        private double g;
-
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Constructor/*'/>
-        public Universe(double g, string name)
+        public Universe(string name)
         {
+            Id = Guid.NewGuid().ToString();
             Bodies = new List<Body>();
-            this.g = g;
             Name = name;
         }
 
@@ -52,8 +53,8 @@ namespace Physics
 
                     Vector a = new Vector
                     {
-                        Vx = g * body.Mass / (rx * rx) * Sign(rx),
-                        Vy = g * body.Mass / (ry * ry) * Sign(rx)
+                        Vx = G * body.Mass / (rx * rx) * Sign(rx),
+                        Vy = G * body.Mass / (ry * ry) * Sign(rx)
                     };
 
                     current.Velocity += a;
@@ -61,7 +62,7 @@ namespace Physics
             }
         }
 
-        private int Sign(long n)
+        private static int Sign(long n)
         {
             if (n >= 0)
                 return 1;
