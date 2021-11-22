@@ -1,4 +1,6 @@
-﻿namespace Physics
+﻿using System;
+
+namespace Physics
 {
     /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/Body/*'/>
     public class Body
@@ -23,6 +25,7 @@
 
         public Body()
         {
+            Id = Guid.NewGuid().ToString();
             Velocity = new Vector { Vx = 0, Vy = 0 };
         }
     }
