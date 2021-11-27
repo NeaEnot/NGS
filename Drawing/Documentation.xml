@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<documentation>
+	<members name="DrawingLogic">
+		<DrawingLogic>
+			<summary>
+				Логика отрисовки вселенной.
+			</summary>
+		</DrawingLogic>
+		<Constructor>
+			<summary>
+				Конструктор, связывающий логику отрисовки со вселенной.
+			</summary>
+			<param name="universe">
+				Привязываемая вселенная.
+			</param>
+		</Constructor>
+		<GetCurrentFrame>
+			<summary>
+				Отрисовка текущего состояния вселенной.
+			</summary>
+			<param name="w">
+				Ширина кадра.
+			</param>
+			<param name="h">
+				Высота кадра.
+			</param>
+			<returns>
+				Возвращает Bitmap кадр.
+			</returns>
+		</GetCurrentFrame>
+	</members>
+</documentation>
