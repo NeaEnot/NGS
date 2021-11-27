@@ -45,7 +45,7 @@ namespace GUI.Views
                 int vy = int.Parse(tbVy.Text);
                 string color = tbColor.Text;
 
-                Regex reg = new Regex("^(#[1-9a-f]{6})$");
+                Regex reg = new Regex("^(#[0-9a-f]{6})$");
                 if (!reg.IsMatch(color))
                     throw new Exception("Цвет задан некорректно.");
 

@@ -16,11 +16,10 @@ namespace Physics
         public List<Body> Bodies { get; private set; }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Constructor/*'/>
-        public Universe(string name)
+        public Universe()
         {
             Id = Guid.NewGuid().ToString();
             Bodies = new List<Body>();
-            Name = name;
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Update/*'/>
@@ -53,8 +52,8 @@ namespace Physics
 
                     Vector a = new Vector
                     {
-                        Vx = G * body.Mass / (rx * rx) * Sign(rx),
-                        Vy = G * body.Mass / (ry * ry) * Sign(rx)
+                        Vx = rx != 0 ? G * body.Mass / (rx * rx) * Sign(rx) : 0,
+                        Vy = ry != 0 ? G * body.Mass / (ry * ry) * Sign(ry) : 0
                     };
 
                     current.Velocity += a;
@@ -65,9 +64,9 @@ namespace Physics
         private static int Sign(long n)
         {
             if (n >= 0)
-                return 1;
-            else 
                 return -1;
+            else 
+                return 1;
         }
     }
 }

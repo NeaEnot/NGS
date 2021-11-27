@@ -8,7 +8,7 @@
         Title="Newton Galaxy Simulation" Height="434" Width="800" MinHeight="338" MinWidth="512">
     <Grid>
         <DataGrid Name="dataGrid" Background="#FFCFCFCF" SelectionMode="Single" Margin="0,0,0,51"/>
-        <Button Name="Draw" Content="Отрисовка" HorizontalAlignment="Left" Margin="10,0,0,16" VerticalAlignment="Bottom" Height="30" Width="80"/>
+        <Button Name="Draw" Content="Отрисовка" HorizontalAlignment="Left" Margin="10,0,0,16" VerticalAlignment="Bottom" Height="30" Width="80" Click="Draw_Click"/>
         <Button Name="Create" Content="Создать" HorizontalAlignment="Right" Margin="0,0,180,16" VerticalAlignment="Bottom" Height="30" Width="80" Click="Create_Click"/>
         <Button Name="Update" Content="Изменить" HorizontalAlignment="Right" Margin="0,0,95,16" VerticalAlignment="Bottom" Height="30" Width="80" Click="Update_Click"/>
         <Button Name="Delete" Content="Удалить" HorizontalAlignment="Right" Margin="0,0,10,16" VerticalAlignment="Bottom" Height="30" Width="80" Click="Delete_Click"/>

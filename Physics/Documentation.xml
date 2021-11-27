@@ -72,11 +72,8 @@
 		</Universe>
 		<Constructor>
 			<summary>
-				Конструктор, создающий вселенную с заданным именем и генерирующий Id.
+				Конструктор, создающий вселенную и генерирующий Id.
 			</summary>
-			<param name="name">
-				Название вселенной.
-			</param>
 		</Constructor>
 		<Id>
 			<summary>

@@ -13,20 +13,17 @@ namespace Drawing
             this.universe = universe;
         }
 
-        public Bitmap GetCurrentFrame(int w, int h)
+        public Bitmap GetCurrentFrame(double w, double h)
         {
-            Bitmap bmp = new Bitmap(w, h);
+            Bitmap bmp = new Bitmap((int)w, (int)h);
             Graphics gr = Graphics.FromImage(bmp);
 
             ColorConverter converter = new ColorConverter();
 
             gr.Clear(Color.Black);
 
-            int cw = w / 2;
-            int ch = h / 2;
-
-            long cx = 0;
-            long cy = 0;
+            int xStart = (int)(0 - w / 2);
+            int yStart = (int)(0 - h / 2);
 
             foreach (Body body in universe.Bodies)
             {
@@ -34,7 +31,7 @@ namespace Drawing
                     continue;
 
                 Brush brush = new SolidBrush((Color)converter.ConvertFromString(body.ColorHex));
-                gr.FillEllipse(brush, body.X - body.D / 2, body.Y - body.D / 2, body.D, body.D);
+                gr.FillEllipse(brush, body.X - body.D / 2 - xStart, body.Y - body.D / 2 - yStart, body.D, body.D);
             }
 
             return bmp;

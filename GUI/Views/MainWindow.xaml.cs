@@ -31,7 +31,7 @@ namespace GUI.Views
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            Universe universe = new Universe("Новая Вселенная");
+            Universe universe = new Universe();
 
             UniverseWindow window = new UniverseWindow(universe);
             window.ShowDialog();
@@ -69,6 +69,21 @@ namespace GUI.Views
 
                 Context.Save();
                 Load();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Draw_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Universe universe = Context.Universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
+
+                DrawingWindow window = new DrawingWindow(universe);
+                window.ShowDialog();
             }
             catch (Exception ex)
             {
