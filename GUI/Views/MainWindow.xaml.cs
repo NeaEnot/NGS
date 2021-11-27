@@ -8,13 +8,11 @@ namespace GUI.Views
 {
     public partial class MainWindow : Window
     {
-        private List<Universe> universes;
-
         public MainWindow()
         {
             InitializeComponent();
 
-            universes = new List<Universe>();
+            Context.Load();
 
             Load();
         }
@@ -22,7 +20,7 @@ namespace GUI.Views
         private void Load()
         {
             List<UniverseViewModel> universesModels = new List<UniverseViewModel>();
-            foreach (Universe universe in universes)
+            foreach (Universe universe in Context.Universes)
                 universesModels.Add(new UniverseViewModel(universe));
 
             dataGrid.ItemsSource = null;
@@ -38,8 +36,9 @@ namespace GUI.Views
             UniverseWindow window = new UniverseWindow(universe);
             window.ShowDialog();
 
-            universes.Add(universe);
+            Context.Universes.Add(universe);
 
+            Context.Save();
             Load();
         }
 
@@ -47,11 +46,12 @@ namespace GUI.Views
         {
             try
             {
-                Universe universe = universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
+                Universe universe = Context.Universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
 
                 UniverseWindow window = new UniverseWindow(universe);
                 window.ShowDialog();
 
+                Context.Save();
                 Load();
             }
             catch (Exception ex)
@@ -64,9 +64,10 @@ namespace GUI.Views
         {
             try
             {
-                Universe universe = universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
-                universes.Remove(universe);
+                Universe universe = Context.Universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
+                Context.Universes.Remove(universe);
 
+                Context.Save();
                 Load();
             }
             catch (Exception ex)
