@@ -116,7 +116,7 @@ namespace GUI.Views
                         img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     }));
 
-                    Thread.Sleep(maxSpeed - speed);
+                    Thread.Sleep(maxSpeed - speed + 1);
 
                     if (cts.Token.IsCancellationRequested)
                         return;

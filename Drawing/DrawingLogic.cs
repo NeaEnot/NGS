@@ -31,7 +31,7 @@ namespace Drawing
                     continue;
 
                 Brush brush = new SolidBrush((Color)converter.ConvertFromString(body.ColorHex));
-                gr.FillEllipse(brush, body.X - body.D / 2 - xStart, body.Y - body.D / 2 - yStart, body.D, body.D);
+                gr.FillEllipse(brush, (int)(body.X - body.D / 2 - xStart), (int)(body.Y - body.D / 2 - yStart), body.D, body.D);
             }
 
             return bmp;

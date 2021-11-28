@@ -9,9 +9,9 @@ namespace Physics
         public string Id { get; set; }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/X/*'/>
-        public long X { get; set; }
+        public double X { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/Y/*'/>
-        public long Y { get; set; }
+        public double Y { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/D/*'/>
         public byte D { get; set; }
 

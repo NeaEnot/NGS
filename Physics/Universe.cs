@@ -33,8 +33,8 @@ namespace Physics
         {
             foreach (Body body in Bodies)
             {
-                body.X += (long)body.Velocity.Vx;
-                body.Y += (long)body.Velocity.Vy;
+                body.X += body.Velocity.Vx;
+                body.Y += body.Velocity.Vy;
             }
         }
 
@@ -47,13 +47,19 @@ namespace Physics
                     if (body == current)
                         continue;
 
-                    long rx = current.X - body.X;
-                    long ry = current.Y - body.Y;
+                    double rx = current.X - body.X;
+                    double ry = current.Y - body.Y;
+                    double r = Math.Sqrt(rx * rx + ry * ry);
+
+                    double sin = ry / r;
+                    double cos = rx / r;
+
+                    double f = G * current.Mass * body.Mass / (r * r);
 
                     Vector a = new Vector
                     {
-                        Vx = rx != 0 ? G * body.Mass / (rx * rx) * Sign(rx) : 0,
-                        Vy = ry != 0 ? G * body.Mass / (ry * ry) * Sign(ry) : 0
+                        Vx = G * body.Mass / (r * r) * -cos,
+                        Vy = G * body.Mass / (r * r) * -sin
                     };
 
                     current.Velocity += a;

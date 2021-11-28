@@ -37,8 +37,8 @@ namespace GUI.Views
         {
             try
             {
-                int x = int.Parse(tbX.Text);
-                int y = int.Parse(tbY.Text);
+                double x = double.Parse(tbX.Text);
+                double y = double.Parse(tbY.Text);
                 byte d = byte.Parse(tbD.Text);
                 uint mass = uint.Parse(tbMass.Text);
                 int vx = int.Parse(tbVx.Text);
