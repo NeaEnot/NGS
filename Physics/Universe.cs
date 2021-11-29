@@ -54,12 +54,10 @@ namespace Physics
                     double sin = ry / r;
                     double cos = rx / r;
 
-                    double f = G * current.Mass * body.Mass / (r * r);
-
                     Vector a = new Vector
                     {
-                        Vx = G * body.Mass / (r * r) * -cos,
-                        Vy = G * body.Mass / (r * r) * -sin
+                        Vx = G * body.Mass / (Math.Sqrt(r)) * -cos,
+                        Vy = G * body.Mass / (Math.Sqrt(r)) * -sin
                     };
 
                     current.Velocity += a;

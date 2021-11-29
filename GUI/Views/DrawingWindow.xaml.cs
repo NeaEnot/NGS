@@ -99,7 +99,7 @@ namespace GUI.Views
         {
             int speed = (int)sliderSpeed.Value;
             int maxSpeed = (int)sliderSpeed.Maximum;
-            double distance = sliderScale.Value / 100;
+            double distance = Math.Pow(sliderScale.Value / 100, Math.E);
 
             // Считываем центрирование
 

@@ -13,7 +13,7 @@ namespace Physics
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/Y/*'/>
         public double Y { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/D/*'/>
-        public byte D { get; set; }
+        public uint D { get; set; }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/Mass/*'/>
         public uint Mass { get; set; }
