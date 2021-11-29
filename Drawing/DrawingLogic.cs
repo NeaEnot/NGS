@@ -13,7 +13,7 @@ namespace Drawing
             this.universe = universe;
         }
 
-        public Bitmap GetCurrentFrame(double w, double h)
+        public Bitmap GetCurrentFrame(double w, double h, double distance = 1)
         {
             Bitmap bmp = new Bitmap((int)w, (int)h);
             Graphics gr = Graphics.FromImage(bmp);
@@ -27,11 +27,15 @@ namespace Drawing
 
             foreach (Body body in universe.Bodies)
             {
-                if (Math.Abs(body.X) > w / 2 + body.D || Math.Abs(body.Y) > h / 2 + body.D)
+                double x = body.X / distance;
+                double y = body.Y / distance;
+                double d = body.D / distance;
+
+                if (Math.Abs(x) > w / 2 + d || Math.Abs(y) > h / 2 + d)
                     continue;
 
                 Brush brush = new SolidBrush((Color)converter.ConvertFromString(body.ColorHex));
-                gr.FillEllipse(brush, (int)(body.X - body.D / 2 - xStart), (int)(body.Y - body.D / 2 - yStart), body.D, body.D);
+                gr.FillEllipse(brush, (int)(x - d / 2 - xStart), (int)(y - d / 2 - yStart), (int)d, (int)d);
             }
 
             return bmp;

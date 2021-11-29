@@ -99,7 +99,7 @@ namespace GUI.Views
         {
             int speed = (int)sliderSpeed.Value;
             int maxSpeed = (int)sliderSpeed.Maximum;
-            int scale = (int)sliderScale.Value;
+            double distance = sliderScale.Value / 100;
 
             // Считываем центрирование
 
@@ -112,7 +112,7 @@ namespace GUI.Views
 
                     Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
                     {
-                        Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height);
+                        Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, distance);
                         img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     }));
 
