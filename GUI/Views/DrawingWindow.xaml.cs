@@ -1,4 +1,5 @@
 ﻿using Drawing;
+using Drawing.Centers;
 using Physics;
 using System;
 using System.Drawing;
@@ -27,6 +28,7 @@ namespace GUI.Views
             InitializeComponent();
 
             universeOriginal = universe;
+
             CopyUniverse();
         }
 
@@ -62,7 +64,9 @@ namespace GUI.Views
 
             logic = new DrawingLogic(universe);
 
-            Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height);
+            cbObject.ItemsSource = universe.Bodies;
+
+            Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, new CoordCenter(0, 0));
             img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
 
@@ -101,7 +105,30 @@ namespace GUI.Views
             int maxSpeed = (int)sliderSpeed.Maximum;
             double distance = Math.Pow(sliderScale.Value / 100, Math.E);
 
-            // Считываем центрирование
+            ICenter center = new CoordCenter(0, 0);
+
+            switch (tabs.SelectedIndex)
+            {
+                case 0:
+                    try
+                    {
+                        double x = double.Parse(tbX.Text);
+                        double y = double.Parse(tbY.Text);
+                        center = new CoordCenter(x, y);
+                    }
+                    catch
+                    { }
+                    break;
+                case 1:
+                    try
+                    {
+                        Body b = cbObject.SelectedItem as Body;
+                        center = new BodyCenter(b);
+                    }
+                    catch
+                    { }
+                    break;
+            }
 
             cts = new CancellationTokenSource();
             await Task.Run(() =>
@@ -112,7 +139,7 @@ namespace GUI.Views
 
                     Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
                     {
-                        Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, distance);
+                        Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, center, distance);
                         img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     }));
 
@@ -122,6 +149,51 @@ namespace GUI.Views
                         return;
                 }
             });
+        }
+
+        private void btnNextFrame_Click(object sender, RoutedEventArgs e)
+        {
+            int speed = (int)sliderSpeed.Value;
+            int maxSpeed = (int)sliderSpeed.Maximum;
+            double distance = Math.Pow(sliderScale.Value / 100, Math.E);
+
+            ICenter center = new CoordCenter(0, 0);
+
+            switch (tabs.SelectedIndex)
+            {
+                case 0:
+                    try
+                    {
+                        double x = double.Parse(tbX.Text);
+                        double y = double.Parse(tbY.Text);
+                        center = new CoordCenter(x, y);
+                    }
+                    catch
+                    { }
+                    break;
+                case 1:
+                    try
+                    {
+                        Body b = cbObject.SelectedItem as Body;
+                        center = new BodyCenter(b);
+                    }
+                    catch
+                    { }
+                    break;
+            }
+
+            universe.Update();
+
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
+            {
+                Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, center, distance);
+                img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }));
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            CopyUniverse();
         }
     }
 }

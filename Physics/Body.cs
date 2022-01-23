@@ -28,5 +28,10 @@ namespace Physics
             Id = Guid.NewGuid().ToString();
             Velocity = new Vector { Vx = 0, Vy = 0 };
         }
+
+        public override string ToString()
+        {
+            return $"{Id}, {ColorHex}, {D}:{Mass}";
+        }
     }
 }

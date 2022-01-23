@@ -101,7 +101,7 @@ namespace GUI.Views
                 };
 
                 Universe universe = new Universe { G = rnd.NextDouble() * 20 };
-                for (int i = 0; i < rnd.Next(50, 150); i++)
+                for (int i = 0; i < rnd.Next(5, 10); i++)
                 {
                     uint size = (uint)rnd.Next(1, 500);
                     universe.Bodies.Add(new Body
