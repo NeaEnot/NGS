@@ -1,5 +1,7 @@
 ﻿using Drawing;
 using Drawing.Centers;
+using GUI.Models.Savers;
+using Ookii.Dialogs.Wpf;
 using Physics;
 using System;
 using System.Drawing;
@@ -19,7 +21,9 @@ namespace GUI.Views
     {
         private Universe universeOriginal;
         private Universe universe;
+
         private DrawingLogic logic;
+        private ISaver saver;
 
         private CancellationTokenSource cts;
 
@@ -66,8 +70,11 @@ namespace GUI.Views
 
             cbObject.ItemsSource = universe.Bodies;
 
-            Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, new CoordCenter(0, 0));
-            img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+            {
+                Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, new CoordCenter(0, 0));
+                img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }));
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -75,6 +82,10 @@ namespace GUI.Views
             btnStart.IsEnabled = false;
             btnPause.IsEnabled = true;
             btnStop.IsEnabled = true;
+
+            cbSaveType.IsEnabled = false;
+            tbPathToSave.IsEnabled = false;
+            btnSelectPath.IsEnabled = false;
 
             Movie();
         }
@@ -96,6 +107,10 @@ namespace GUI.Views
             btnPause.IsEnabled = false;
             btnStop.IsEnabled = false;
 
+            cbSaveType.IsEnabled = true;
+            tbPathToSave.IsEnabled = true;
+            btnSelectPath.IsEnabled = true;
+
             CopyUniverse();
         }
 
@@ -105,30 +120,8 @@ namespace GUI.Views
             int maxSpeed = (int)sliderSpeed.Maximum;
             double distance = Math.Pow(sliderScale.Value / 100, Math.E);
 
-            ICenter center = new CoordCenter(0, 0);
-
-            switch (tabs.SelectedIndex)
-            {
-                case 0:
-                    try
-                    {
-                        double x = double.Parse(tbX.Text);
-                        double y = double.Parse(tbY.Text);
-                        center = new CoordCenter(x, y);
-                    }
-                    catch
-                    { }
-                    break;
-                case 1:
-                    try
-                    {
-                        Body b = cbObject.SelectedItem as Body;
-                        center = new BodyCenter(b);
-                    }
-                    catch
-                    { }
-                    break;
-            }
+            ICenter center = GetCenter();
+            SetSaver();
 
             cts = new CancellationTokenSource();
             await Task.Run(() =>
@@ -137,16 +130,21 @@ namespace GUI.Views
                 {
                     universe.Update();
 
-                    Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
+                    Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
                     {
                         Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, center, distance);
                         img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        SaveFrame(bmp);
                     }));
 
                     Thread.Sleep(maxSpeed - speed + 1);
 
                     if (cts.Token.IsCancellationRequested)
+                    {
+                        if (saver != null)
+                            saver.Save();
                         return;
+                    }
                 }
             });
         }
@@ -157,6 +155,34 @@ namespace GUI.Views
             int maxSpeed = (int)sliderSpeed.Maximum;
             double distance = Math.Pow(sliderScale.Value / 100, Math.E);
 
+            ICenter center = GetCenter();
+
+            universe.Update();
+
+            Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, center, distance);
+            Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
+                img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())
+            ));
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            CopyUniverse();
+        }
+
+        private void btnSelectPath_Click(object sender, RoutedEventArgs e)
+        {
+            VistaFolderBrowserDialog dlg = new VistaFolderBrowserDialog();
+
+            if (dlg.ShowDialog() == true)
+            {
+                string folder = dlg.SelectedPath;
+                tbPathToSave.Text = folder;
+            }
+        }
+
+        private ICenter GetCenter()
+        {
             ICenter center = new CoordCenter(0, 0);
 
             switch (tabs.SelectedIndex)
@@ -182,18 +208,37 @@ namespace GUI.Views
                     break;
             }
 
-            universe.Update();
-
-            Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
-            {
-                Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, center, distance);
-                img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            }));
+            return center;
         }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void SetSaver()
         {
-            CopyUniverse();
+            if (!string.IsNullOrWhiteSpace(tbPathToSave.Text))
+            {
+                string path = tbPathToSave.Text;
+                try
+                {
+                    switch (cbSaveType.SelectedItem)
+                    {
+                        case "jpegs":
+                            saver = new JpegsSaver(path);
+                            break;
+                        case "gif":
+                            saver = new GifSaver(path);
+                            break;
+                    }
+                }
+                catch
+                {
+                    saver = null;
+                }
+            }
+        }
+
+        private void SaveFrame(Bitmap bmp)
+        {
+            if (saver != null)
+                saver.AddFrame(bmp);
         }
     }
 }

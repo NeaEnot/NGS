@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
         Title="DrawingWindow" Height="471" Width="1047" MinHeight="322" MinWidth="554"
         Unloaded="Window_Unloaded">
+
+    <Window.Resources>
+        <col:ArrayList x:Key="saveTypes">
+            <sys:String>jpegs</sys:String>
+            <sys:String>gif</sys:String>
+        </col:ArrayList>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Name="colImg" Width="1*"/>
@@ -58,7 +68,14 @@
         <Button Name="btnStart" Content="Старт" HorizontalAlignment="Right" Margin="0,233,140,0" VerticalAlignment="Top" Height="32" Width="55" Click="btnStart_Click" Grid.Column="1"/>
         <Button Name="btnPause" Content="Пауза" IsEnabled="false" HorizontalAlignment="Center" Margin="0,233,0,0" VerticalAlignment="Top" Height="32" Width="55" Click="btnPause_Click" Grid.Column="1"/>
         <Button Name="btnStop" Content="Стоп" IsEnabled="false" HorizontalAlignment="Right" Margin="0,233,10,0" VerticalAlignment="Top" Height="32" Width="55" Click="btnStop_Click" Grid.Column="1"/>
+        
+        <!--
         <Button Name="btnNextFrame" Content="Шаг" HorizontalAlignment="Right" Margin="0,270,109,0" VerticalAlignment="Top" Height="32" Width="86" Click="btnNextFrame_Click" Grid.Column="1"/>
         <Button Name="btnReset" Content="Сброс" HorizontalAlignment="Right" Margin="0,270,10,0" VerticalAlignment="Top" Height="32" Width="86" Click="btnReset_Click"  Grid.Column="1"/>
+        -->
+        
+        <ComboBox Name="cbSaveType" Grid.Column="1" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Width="180" ItemsSource="{StaticResource saveTypes}" SelectedIndex="0"/>
+        <TextBox Name="tbPathToSave" Grid.Column="1" HorizontalAlignment="Center" Margin="0,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
+        <Button Name="btnSelectPath" Content="Выбрать папку" Grid.Column="1" HorizontalAlignment="Center" Margin="0,397,0,0" Height="32" VerticalAlignment="Top" Width="180" Click="btnSelectPath_Click"/>
     </Grid>
 </Window>
