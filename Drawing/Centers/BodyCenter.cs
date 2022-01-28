@@ -9,6 +9,8 @@ namespace Drawing.Centers
 
         public Vector Center => new Vector { Vx = body.X, Vy = body.Y };
 
+        public bool IsScaled => true;
+
         public BodyCenter(Body body)
         {
             if (body == null)

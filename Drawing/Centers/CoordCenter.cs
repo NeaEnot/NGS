@@ -9,6 +9,8 @@ namespace Drawing.Centers
 
         public Vector Center => new Vector { Vx = x, Vy = y };
 
+        public bool IsScaled => false;
+
         public CoordCenter(double x, double y)
         {
             this.x = x;

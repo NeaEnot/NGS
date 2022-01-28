@@ -94,22 +94,22 @@ namespace GUI.Views
                 Func<string> color = () =>
                 {
                     string str = "#";
-                    string abc = "0123456789abcdef";
+                    string abc = "6789abcdef";
                     for (int i = 0; i < 6; i++)
                         str += abc[rnd.Next(abc.Length)];
                     return str;
                 };
 
                 Universe universe = new Universe { G = rnd.NextDouble() * 20 };
-                for (int i = 0; i < rnd.Next(5, 10); i++)
+                for (int i = 0; i < rnd.Next(40, 100); i++)
                 {
-                    uint size = (uint)rnd.Next(1, 500);
+                    uint size = (uint)rnd.Next(1, 2500);
                     universe.Bodies.Add(new Body
                     {
-                        X = rnd.NextDouble() * 4000 - 2000,
-                        Y = rnd.NextDouble() * 4000 - 2000,
+                        X = rnd.NextDouble() * 400000 - 200000,
+                        Y = rnd.NextDouble() * 400000 - 200000,
                         D = size,
-                        Mass = size,
+                        Mass = size / 500 > 0 ? size / 500 : 1,
                         Velocity = new Physics.Vector { Vx = rnd.NextDouble() * 50 - 25, Vy = rnd.NextDouble() * 50 - 25 },
                         ColorHex = color()
                     });
