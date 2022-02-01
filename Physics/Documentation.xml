@@ -101,4 +101,51 @@
 			</summary>
 		</Update>
 	</members>
+	<members name="Date">
+		<Date>
+			<summary>
+				Неизменяемая модель даты. Дата состоит из дня, года, миллениума (тесячелетие) и леодра (миллион лет).
+			</summary>
+		</Date>
+		<Constructor>
+			<summary>
+				Конструктор, создающий экземпляр даты.
+			</summary>
+		</Constructor>
+		<NextDay>
+			<summary>
+				Метод, возвращающий дату следующего дня.
+			</summary>
+		</NextDay>
+		<ToString>
+			<summary>
+				Представление даты в виде строки llllllll.mmm.yyy.ddd.
+			</summary>
+		</ToString>
+		<operatorPlus>
+			<summary>
+				Возвращает новую дату, полученную путём сложения двух передаваемых данных.
+			</summary>
+		</operatorPlus>
+		<operatorMore>
+			<summary>
+				Возвращает true, если первая дата больше второй, иначе false.
+			</summary>
+		</operatorMore>
+		<operatorLess>
+			<summary>
+				Возвращает true, если первая дата меньше второй, иначе false.
+			</summary>
+		</operatorLess>
+		<operatorEquality>
+			<summary>
+				Возвращает true, если две даты равны, иначе false.
+			</summary>
+		</operatorEquality>
+		<operatorInequality>
+			<summary>
+				Возвращает true, если две даты не равны, иначе false.
+			</summary>
+		</operatorInequality>
+	</members>
 </documentation>

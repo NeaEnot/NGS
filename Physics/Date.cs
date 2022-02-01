@@ -2,6 +2,7 @@
 
 namespace Physics
 {
+    /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Date/*'/>
     public class Date
     {
         private static uint maxDays = 365;
@@ -13,6 +14,7 @@ namespace Physics
         private uint millenium;
         private uint leodr;
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Constructor/*'/>
         public Date(uint day = 0, uint year = 0, uint millenium = 0, uint leodr = 0)
         {
             if (day > maxDays || year > maxYears || millenium > maxMilleniums)
@@ -24,6 +26,7 @@ namespace Physics
             this.leodr = leodr;
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/NextDay/*'/>
         public Date NextDay()
         {
             uint day = this.day;
@@ -54,11 +57,13 @@ namespace Physics
             return new Date(day, year, millenium, leodr);
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/ToString/*'/>
         public override string ToString()
         {
             return leodr.ToString("00000000") + millenium.ToString("000") + year.ToString("000") + day.ToString("000");
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorPlus/*'/>
         public static Date operator +(Date d1, Date d2)
         {
             uint day = d1.day + d2.day;
@@ -87,6 +92,7 @@ namespace Physics
             return new Date(day, year, millenium, leodr);
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorMore/*'/>
         public static bool operator >(Date d1, Date d2)
         {
             if (d1.leodr == d2.leodr)
@@ -113,6 +119,7 @@ namespace Physics
             }
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorLess/*'/>
         public static bool operator <(Date d1, Date d2)
         {
             if (d1.leodr == d2.leodr)
@@ -139,6 +146,7 @@ namespace Physics
             }
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorEquality/*'/>
         public static bool operator ==(Date d1, Date d2)
         {
             return
@@ -148,6 +156,7 @@ namespace Physics
                 d1.day == d2.day;
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorInequality/*'/>
         public static bool operator !=(Date d1, Date d2)
         {
             return !(
