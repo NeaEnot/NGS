@@ -40,18 +40,18 @@ namespace Physics
             {
                 day = 0;
                 year++;
-            }
 
-            if (year == maxYears)
-            {
-                year = 0;
-                millenium++;
-            }
+                if (year == maxYears)
+                {
+                    year = 0;
+                    millenium++;
 
-            if (millenium == maxMilleniums)
-            {
-                millenium = 0;
-                leodr++;
+                    if (millenium == maxMilleniums)
+                    {
+                        millenium = 0;
+                        leodr++;
+                    }
+                }
             }
 
             return new Date(day, year, millenium, leodr);
