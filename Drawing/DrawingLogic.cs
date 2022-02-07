@@ -1,6 +1,6 @@
-﻿using Drawing.Centers;
-using Physics;
+﻿using Physics;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Drawing
@@ -20,30 +20,32 @@ namespace Drawing
             this.imprintIntensity = imprintIntensity;
         }
 
-        public Bitmap GetCurrentFrame(double w, double h, ICenter center, double distance = 1)
+        public Bitmap GetCurrentFrame(DrawingParams p)
         {
-            Bitmap bmp = new Bitmap((int)w, (int)h);
+            Bitmap bmp = new Bitmap((int)p.W, (int)p.H);
             Graphics gr = Graphics.FromImage(bmp);
 
             ColorConverter converter = new ColorConverter();
 
-            Vector c = center.Center;
-            int xStart = (int)(c.Vx / (center.IsScaled ? distance : 1) - w / 2);
-            int yStart = (int)(c.Vy / (center.IsScaled ? distance : 1) - h / 2);
+            Vector c = p.Center.Center;
+            int xStart = (int)(c.Vx / (p.Center.IsScaled ? p.Distance : 1) - p.W / 2);
+            int yStart = (int)(c.Vy / (p.Center.IsScaled ? p.Distance : 1) - p.H / 2);
 
             gr.Clear(background);
 
             if (prevBmp != null)
                 gr.DrawImage(prevBmp, 0, 0);
 
-            foreach (Body body in universe.Bodies)
+            List<Body> bodies = p.Sorting != null ? p.Sorting.Sort(universe.Bodies) : universe.Bodies;
+
+            foreach (Body body in bodies)
             {
-                double x = body.X / distance;
-                double y = body.Y / distance;
-                double d = body.D / distance;
+                double x = body.X / p.Distance;
+                double y = body.Y / p.Distance;
+                double d = body.D / p.Distance;
                 d = d >= 1 ? d : 1;
 
-                if (Math.Abs(x - c.Vx / distance) > w / 2 + d || Math.Abs(y - c.Vy / distance) > h / 2 + d)
+                if (Math.Abs(x - c.Vx / p.Distance) > p.W / 2 + d || Math.Abs(y - c.Vy / p.Distance) > p.H / 2 + d)
                     continue;
 
                 int px = (int)(x - d / 2 - xStart);
@@ -75,7 +77,7 @@ namespace Drawing
             return bmp;
         }
 
-        public Color RemoveAlpha(Color foreground)
+        private Color RemoveAlpha(Color foreground)
         {
             if (foreground.A == 255)
                 return foreground;

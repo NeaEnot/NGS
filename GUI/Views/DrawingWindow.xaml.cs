@@ -72,7 +72,7 @@ namespace GUI.Views
 
             Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
             {
-                Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, new CoordCenter(0, 0));
+                Bitmap bmp = logic.GetCurrentFrame(new DrawingParams { W = Width - 200, H = Height, Center = new CoordCenter(0, 0) });
                 img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }));
         }
@@ -132,7 +132,7 @@ namespace GUI.Views
 
                     Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
                     {
-                        Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, center, distance);
+                        Bitmap bmp = logic.GetCurrentFrame(new DrawingParams { W = Width - 200, H = Height, Center = center, Distance = distance });
                         img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                         SaveFrame(bmp);
                     }));
@@ -159,7 +159,7 @@ namespace GUI.Views
 
             universe.Update();
 
-            Bitmap bmp = logic.GetCurrentFrame(Width - 200, Height, center, distance);
+            Bitmap bmp = logic.GetCurrentFrame(new DrawingParams { W = Width - 200, H = Height, Center = center, Distance = distance });
             Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(() =>
                 img.Source = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())
             ));
