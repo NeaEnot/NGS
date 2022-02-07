@@ -67,7 +67,7 @@
 	<members name="Universe">
 		<Universe>
 			<summary>
-				Модель вселенной.
+				<para>Модель вселенной.</para>
 			</summary>
 		</Universe>
 		<Constructor>
@@ -75,11 +75,6 @@
 				Конструктор, создающий вселенную и генерирующий Id.
 			</summary>
 		</Constructor>
-		<Id>
-			<summary>
-				Уникальный номер вселенной.
-			</summary>
-		</Id>
 		<G>
 			<summary>
 				Гравитационная постоянная.

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Physics
 {
     /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Universe/*'/>
     public class Universe
     {
-        /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Id/*'/>
-        public string Id { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Name/*'/>
         public string Name { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/G/*'/>
@@ -15,11 +14,14 @@ namespace Physics
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Bodies/*'/>
         public List<Body> Bodies { get; private set; }
 
+        private IdHelper idHelper;
+
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Constructor/*'/>
         public Universe()
         {
-            Id = Guid.NewGuid().ToString();
             Bodies = new List<Body>();
+            idHelper = new IdHelper(Bodies.Select(req => req.Id).ToList());
+            Body.IdHelper = idHelper;
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Update/*'/>
