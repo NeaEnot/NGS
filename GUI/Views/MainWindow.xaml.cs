@@ -1,123 +1,146 @@
-﻿using GUI.Models;
-using Physics;
+﻿using Physics;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace GUI.Views
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private string universePath;
+        private Universe universe;
+
+        public MainWindow(string universePath)
         {
             InitializeComponent();
 
-            Context.Load();
+            this.universePath = universePath;
+            if (universePath != "")
+                OpenUniverse();
 
             Load();
+        }
+
+        private void OpenUniverse()
+        {
+
         }
 
         private void Load()
         {
-            List<UniverseViewModel> universesModels = new List<UniverseViewModel>();
-            foreach (Universe universe in Context.Universes)
-                universesModels.Add(new UniverseViewModel(universe));
-
-            dataGrid.ItemsSource = null;
-            dataGrid.ItemsSource = universesModels;
-
-            dataGrid.IsReadOnly = true;
-        }
-
-        private void Create_Click(object sender, RoutedEventArgs e)
-        {
-            Universe universe = new Universe();
-
-            UniverseWindow window = new UniverseWindow(universe);
-            window.ShowDialog();
-
-            Context.Universes.Add(universe);
-
-            Context.Save();
-            Load();
-        }
-
-        private void Update_Click(object sender, RoutedEventArgs e)
-        {
-            if (dataGrid.SelectedItem != null)
+            if (universe != null)
             {
-                Universe universe = Context.Universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
+                dataGrid.ItemsSource = null;
+                dataGrid.ItemsSource = universe.Bodies;
 
-                UniverseWindow window = new UniverseWindow(universe);
-                window.ShowDialog();
+                dataGrid.IsReadOnly = true;
 
-                Context.Save();
+                tbG.Text = universe.G.ToString();
+
+                Title = "Newton Galaxy Simulation - " + universe.Name;
+
+                miSave.IsEnabled = true;
+                miUniverse.IsEnabled = true;
+                miHistory.IsEnabled = true;
+                miRender.IsEnabled = true;
+                tbG.IsEnabled = true;
+                btnCreate.IsEnabled = true;
+                btnUpdate.IsEnabled = true;
+                btnDelete.IsEnabled = true;
+            }
+            else
+            {
+                dataGrid.ItemsSource = null;
+                tbG.Text = "";
+
+                Title = "Newton Galaxy Simulation";
+
+                miSave.IsEnabled = false;
+                miUniverse.IsEnabled = false;
+                miHistory.IsEnabled = false;
+                miRender.IsEnabled = false;
+                tbG.IsEnabled = false;
+                btnCreate.IsEnabled = false;
+                btnUpdate.IsEnabled = false;
+                btnDelete.IsEnabled = false;
+            }
+        }
+
+        private void miNew_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void miOpen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void miSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void miHistory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void miRender_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Body body = new Body();
+            BodyWindow window = new BodyWindow(body);
+
+            if (window.ShowDialog() == true)
+            {
+                universe.Bodies.Add(body);
                 Load();
             }
-            else
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Выберите вселенную", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Body body = dataGrid.SelectedItem as Body;
+                BodyWindow window = new BodyWindow(body);
+
+                if (window.ShowDialog() == true)
+                    Load();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (dataGrid.SelectedItem != null)
+            try
             {
-                Universe universe = Context.Universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
-                Context.Universes.Remove(universe);
-
-                Context.Save();
+                Body body = dataGrid.SelectedItem as Body;
+                universe.Bodies.Remove(body);
                 Load();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Выберите вселенную", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void Draw_Click(object sender, RoutedEventArgs e)
+        private void tbG_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (dataGrid.SelectedItem != null)
+            try
             {
-                Universe universe = Context.Universes.Find(req => req.Id == (dataGrid.SelectedItem as UniverseViewModel).Id);
-
-                DrawingWindow window = new DrawingWindow(universe);
-                window.ShowDialog();
+                double g = double.Parse(tbG.Text);
+                universe.G = g;
             }
-            else
-            {
-                //MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                Random rnd = new Random();
-
-                Func<string> color = () =>
-                {
-                    string str = "#";
-                    string abc = "6789abcdef";
-                    for (int i = 0; i < 6; i++)
-                        str += abc[rnd.Next(abc.Length)];
-                    return str;
-                };
-
-                Universe universe = new Universe { G = rnd.NextDouble() * 20 };
-                for (int i = 0; i < rnd.Next(40, 100); i++)
-                {
-                    uint size = (uint)rnd.Next(1, 2500);
-                    universe.Bodies.Add(new Body
-                    {
-                        X = rnd.NextDouble() * 400000 - 200000,
-                        Y = rnd.NextDouble() * 400000 - 200000,
-                        D = size,
-                        Mass = size / 500 > 0 ? size / 500 : 1,
-                        Velocity = new Physics.Vector { Vx = rnd.NextDouble() * 50 - 25, Vy = rnd.NextDouble() * 50 - 25 },
-                        ColorHex = color()
-                    });
-                }
-
-                DrawingWindow window = new DrawingWindow(universe);
-                window.ShowDialog();
-            }
+            catch
+            { }
         }
     }
 }

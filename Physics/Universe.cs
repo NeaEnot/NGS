@@ -58,21 +58,13 @@ namespace Physics
 
                     Vector a = new Vector
                     {
-                        Vx = G * body.Mass / (Math.Sqrt(r)) * -cos,
-                        Vy = G * body.Mass / (Math.Sqrt(r)) * -sin
+                        Vx = G * body.Mass / Math.Sqrt(r) * -cos,
+                        Vy = G * body.Mass / Math.Sqrt(r) * -sin
                     };
 
                     current.Velocity += a;
                 }
             }
-        }
-
-        private static int Sign(long n)
-        {
-            if (n >= 0)
-                return -1;
-            else 
-                return 1;
         }
     }
 }
