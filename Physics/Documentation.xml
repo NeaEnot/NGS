@@ -146,14 +146,9 @@
 	<members name="BrightnessCalc">
 		<BrightnessCalc>
 			<summary>
-				Класс синглтон, вычисляющий яркость цвета.
+				Статический класс, вычисляющий яркость цвета.
 			</summary>
 		</BrightnessCalc>
-		<Instance>
-			<summary>
-				Экземпляр класса.
-			</summary>
-		</Instance>
 		<Calc>
 			<summary>
 				Метод, вычисляющий яркость цвета по его hex-строке.

@@ -3,50 +3,30 @@
 namespace Physics
 {
     /// <include file='Documentation.xml' path='documentation/members[@name="BrightnessCalc"]/BrightnessCalc/*'/>
-    public class BrightnessCalc
+    public static class BrightnessCalc
     {
-        private static BrightnessCalc instance;
-
-        private static Dictionary<char, byte> shades;
-
-        /// <include file='Documentation.xml' path='documentation/members[@name="BrightnessCalc"]/Instance/*'/>
-        public static BrightnessCalc Instance
+        private static Dictionary<char, byte> shades = new Dictionary<char, byte>
         {
-            get
-            {
-                if (instance == null)
-                    instance = new BrightnessCalc();
-
-                return instance;
-            }
-        }
-
-        private BrightnessCalc()
-        {
-            if (shades == null)
-            {
-                shades = new Dictionary<char, byte>();
-                shades.Add('0', 0);
-                shades.Add('1', 1);
-                shades.Add('2', 2);
-                shades.Add('3', 3);
-                shades.Add('4', 4);
-                shades.Add('5', 5);
-                shades.Add('6', 6);
-                shades.Add('7', 7);
-                shades.Add('8', 8);
-                shades.Add('9', 9);
-                shades.Add('a', 10);
-                shades.Add('b', 11);
-                shades.Add('c', 12);
-                shades.Add('d', 13);
-                shades.Add('e', 14);
-                shades.Add('f', 15);
-            }
-        }
+            { '0', 0 },
+            { '1', 1 },
+            { '2', 2 },
+            { '3', 3 },
+            { '4', 4 },
+            { '5', 5 },
+            { '6', 6 },
+            { '7', 7 },
+            { '8', 8 },
+            { '9', 9 },
+            { 'a', 10 },
+            { 'b', 11 },
+            { 'c', 12 },
+            { 'd', 13 },
+            { 'e', 14 },
+            { 'f', 15 }
+        };
 
         /// <include file='Documentation.xml' path='documentation/members[@name="BrightnessCalc"]/Calc/*'/>
-        public ushort Calc(string colorHex)
+        public static ushort Calc(string colorHex)
         {
             ushort answer = 0;
 

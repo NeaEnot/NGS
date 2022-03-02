@@ -67,7 +67,9 @@ namespace GUI.Views
 
         private void miNew_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateWindow window = new CreateWindow();
+            if (window.ShowDialog() == true)
+                universe = window.Universe;
         }
 
         private void miOpen_Click(object sender, RoutedEventArgs e)
