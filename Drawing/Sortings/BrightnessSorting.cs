@@ -16,9 +16,9 @@ namespace Drawing.Sortings
         List<Body> ISorting.Sort(List<Body> bodies)
         {
             if (order == Order.Ascending)
-                return bodies.OrderBy(rec => BrightnessCalc.Instance.Calc(rec.ColorHex)).ToList();
+                return bodies.OrderBy(rec => BrightnessCalc.Calc(rec.ColorHex)).ToList();
             else
-                return bodies.OrderByDescending(rec => BrightnessCalc.Instance.Calc(rec.ColorHex)).ToList();
+                return bodies.OrderByDescending(rec => BrightnessCalc.Calc(rec.ColorHex)).ToList();
         }
     }
 }
