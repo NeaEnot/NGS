@@ -1,4 +1,6 @@
-﻿using Physics;
+﻿using GUI.Models;
+using Ookii.Dialogs.Wpf;
+using Physics;
 using System;
 using System.Windows;
 
@@ -7,6 +9,7 @@ namespace GUI.Views
     public partial class MainWindow : Window
     {
         private string universePath;
+        private Context context;
         private Universe universe;
 
         public MainWindow(string universePath)
@@ -22,7 +25,8 @@ namespace GUI.Views
 
         private void OpenUniverse()
         {
-
+            context = new Context(universePath);
+            universe = context.LoadUniverse();
         }
 
         private void Load()
@@ -69,17 +73,41 @@ namespace GUI.Views
         {
             CreateWindow window = new CreateWindow();
             if (window.ShowDialog() == true)
+            {
                 universe = window.Universe;
+                context = null;
+            }
         }
 
         private void miOpen_Click(object sender, RoutedEventArgs e)
         {
+            VistaFolderBrowserDialog dlg = new VistaFolderBrowserDialog();
 
+            if (dlg.ShowDialog() == true)
+            {
+                universePath = dlg.SelectedPath;
+                OpenUniverse();
+                Load();
+            }
         }
 
         private void miSave_Click(object sender, RoutedEventArgs e)
         {
+            if (context == null)
+            {
+                VistaFolderBrowserDialog dlg = new VistaFolderBrowserDialog();
 
+                if (dlg.ShowDialog() == true)
+                {
+                    universePath = dlg.SelectedPath;
+                    context = new Context(universePath);
+                    context.SaveUniverse(universe);
+                }
+            }
+            else
+            {
+                context.SaveUniverse(universe);
+            }
         }
 
         private void miHistory_Click(object sender, RoutedEventArgs e)
