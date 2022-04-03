@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace GUI.Views
 {
@@ -22,6 +24,8 @@ namespace GUI.Views
         private Universe universe;
 
         private Date currentDate = new Date();
+
+        private CancellationTokenSource cts;
 
         internal HistoryWindow(Context context, Universe universe)
         {
@@ -69,21 +73,45 @@ namespace GUI.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             Date purpose = GetPurpose();
 
-            while (currentDate < purpose)
+            cts = new CancellationTokenSource();
+
+            btnStart.IsEnabled = false;
+            btnStop.IsEnabled = true;
+
+            await Task.Run(() =>
             {
-                currentDate = currentDate.NextDay();
-                universe.Update();
+                while (currentDate < purpose)
+                {
+                    currentDate = currentDate.NextDay();
+                    universe.Update();
 
-                UniverseState state = new UniverseState(universe);
-                HistorySummary sumary = new HistorySummary { Date = currentDate.ToString() };
+                    UniverseState state = new UniverseState(universe);
+                    HistorySummary sumary = new HistorySummary { Date = currentDate.ToString() };
 
-                context.SaveUniverseState(state, currentDate);
-                context.SaveHistorySummary(sumary);
-            }
+                    context.SaveUniverseState(state, currentDate);
+                    context.SaveHistorySummary(sumary);
+
+                    Dispatcher.BeginInvoke(DispatcherPriority.Input, new Action(() =>
+                    {
+                        lblDate.Content = currentDate;
+                    }));
+
+                    if (cts.Token.IsCancellationRequested)
+                        break;
+                }
+            });
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            cts.Cancel();
+
+            btnStart.IsEnabled = true;
+            btnStop.IsEnabled = false;
         }
 
         private Date GetPurpose()

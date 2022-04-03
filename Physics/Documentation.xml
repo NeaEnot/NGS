@@ -95,6 +95,60 @@
 				Обновляет состояние вселенной - изменяет положение тел и векторы их скоростей.
 			</summary>
 		</Update>
+		<ToState>
+			<summary>
+				Приводит вселенную к указанному состоянию - изменяет положение тел и векторы их скоростей.
+			</summary>
+		</ToState>
+	</members>
+	<members name="BodyState">
+		<BodyState>
+			<summary>
+				<para>Модель состояния тела.</para>
+			</summary>
+		</BodyState>
+		<Id>
+			<summary>
+				Номер тела, состояние которого хранит модель.
+			</summary>
+		</Id>
+		<X>
+			<summary>
+				X-координата тела в текущем состоянии.
+			</summary>
+		</X>
+		<Y>
+			<summary>
+				Y-координата тела в текущем состоянии.
+			</summary>
+		</Y>
+		<Velocity>
+			<summary>
+				Вектор скорости тела в текущем состоянии.
+			</summary>
+		</Velocity>
+	</members>
+	<members name="UniverseState">
+		<UniverseState>
+			<summary>
+				<para>Модель состояния вселенной.</para>
+			</summary>
+		</UniverseState>
+		<Constructor0>
+			<summary>
+				Пустой конструктор.
+			</summary>
+		</Constructor0>
+		<Constructor1>
+			<summary>
+				Конструктор, который для каждого тела вселенной создаёт модель его состояния.
+			</summary>
+		</Constructor1>
+		<BodyStates>
+			<summary>
+				Модели состояний тел вселенной, состояние которой хранится в модели.
+			</summary>
+		</BodyStates>
 	</members>
 	<members name="Date">
 		<Date>
@@ -117,9 +171,14 @@
 				Представление даты в виде строки llllllll.mmm.yyy.ddd.
 			</summary>
 		</ToString>
+		<Parse>
+			<summary>
+				Статический метод, преобразующий строку вида llllllll.mmm.yyy.ddd в модель даты.
+			</summary>
+		</Parse>
 		<operatorPlus>
 			<summary>
-				Возвращает новую дату, полученную путём сложения двух передаваемых данных.
+				Возвращает новую дату, полученную путём сложения двух передаваемых дат.
 			</summary>
 		</operatorPlus>
 		<operatorMore>

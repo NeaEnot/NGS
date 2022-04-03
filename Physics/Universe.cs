@@ -24,6 +24,7 @@ namespace Physics
             Body.IdHelper = idHelper;
         }
 
+        /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/ToState/*'/>
         public void ToState(UniverseState state)
         {
             foreach (BodyState bodyState in state.BodyStates)
