@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<documentation>
+	<members name="RendersFactory">
+		<RendersFactory>
+			<summary>
+				Статический класс, создающий экземпляры реализаций интерфейса IRender.
+			</summary>
+		</RendersFactory>
+		<GetRendersNames>
+			<summary>
+				Возвращает список строк - имён реализаций интерфейса IRender.
+			</summary>
+		</GetRendersNames>
+		<GetRender>
+			<summary>
+				Возвращает экземпляр реализации интерфейса IRender в зависимости от переданной строки.
+			</summary>
+		</GetRender>
+	</members>
+	<members name="IRender">
+		<IRender>
+			<summary>
+				Интерфейс, позволяющий рендерить набор кадров.
+			</summary>
+		</IRender>
+		<Configure>
+			<summary>
+				Настраивает рендер с помощью объекта-конфига.
+			</summary>
+		</Configure>
+		<AddFrame>
+			<summary>
+				Добавляет кадр к отрендеренному набору.
+			</summary>
+		</AddFrame>
+		<Save>
+			<summary>
+				Сохраняет отрендереный набор кадров.
+			</summary>
+		</Save>
+	</members>
+	<members name="RenderConfig">
+		<RenderConfig>
+			<summary>
+				Модель конфига для рендеров.
+			</summary>
+		</RenderConfig>
+		<Path>
+			<summary>
+				Путь, по которому сохраняется отрендеренный результат.
+			</summary>
+		</Path>
+		<Delay>
+			<summary>
+				Задержка между кадрами.
+			</summary>
+		</Delay>
+	</members>
+</documentation>
