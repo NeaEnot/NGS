@@ -2,3 +2,12 @@
 
 # CA1416: Проверка совместимости платформы
 dotnet_diagnostic.CA1416.severity = none
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = none
+
+# CS0660: Тип определяет оператор == или оператор !=, но не переопределяет Object.Equals(object o)
+dotnet_diagnostic.CS0660.severity = none
+
+# CS0661: Тип определяет оператор == или оператор !=, но не переопределяет Object.GetHashCode()
+dotnet_diagnostic.CS0661.severity = none

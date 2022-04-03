@@ -24,6 +24,17 @@ namespace Physics
             Body.IdHelper = idHelper;
         }
 
+        public void ToState(UniverseState state)
+        {
+            foreach (BodyState bodyState in state.BodyStates)
+            {
+                Body body = Bodies.First(req => req.Id == bodyState.Id);
+                body.X = bodyState.X;
+                body.Y = bodyState.Y;
+                body.Velocity = bodyState.Velocity;
+            }
+        }
+
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Update/*'/>
         public void Update()
         {

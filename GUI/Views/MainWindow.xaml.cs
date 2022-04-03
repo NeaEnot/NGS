@@ -2,6 +2,7 @@
 using Ookii.Dialogs.Wpf;
 using Physics;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace GUI.Views
@@ -16,9 +17,15 @@ namespace GUI.Views
         {
             InitializeComponent();
 
-            this.universePath = universePath;
             if (universePath != "")
+            {
+                string ufile = universePath.Split('\\').Last();
+                universePath = universePath.Replace(ufile, "");
+
+                this.universePath = universePath;
+
                 OpenUniverse();
+            }
 
             Load();
         }
@@ -112,7 +119,8 @@ namespace GUI.Views
 
         private void miHistory_Click(object sender, RoutedEventArgs e)
         {
-
+            HistoryWindow window = new HistoryWindow(context, universe);
+            window.ShowDialog();
         }
 
         private void miRender_Click(object sender, RoutedEventArgs e)

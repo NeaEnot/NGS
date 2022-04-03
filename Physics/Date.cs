@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Physics
 {
@@ -60,7 +61,11 @@ namespace Physics
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/ToString/*'/>
         public override string ToString()
         {
-            return leodr.ToString("00000000") + millenium.ToString("000") + year.ToString("000") + day.ToString("000");
+            return 
+                leodr.ToString("00000000") + "." +
+                millenium.ToString("000") + "." +
+                year.ToString("000") + "." +
+                day.ToString("000");
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorPlus/*'/>
@@ -165,6 +170,15 @@ namespace Physics
                 d1.year == d2.year &&
                 d1.day == d2.day
                 );
+        }
+
+        public static Date Parse(string str)
+        {
+            uint[] comps = str.Split('.').Select(req => uint.Parse(req)).ToArray();
+
+            Date date = new Date(comps[3], comps[2], comps[1], comps[0]);
+
+            return date;
         }
     }
 }
