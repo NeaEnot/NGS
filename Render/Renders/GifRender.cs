@@ -2,17 +2,18 @@
 using System.Drawing;
 using System.Linq;
 
-namespace GUI.Models.Savers
+namespace Render.Renders
 {
-    internal class GifSaver : ISaver
+    internal class GifRender : IRender
     {
         private string path;
-
+        private int delay;
         private MagickImageCollection collection;
 
-        internal GifSaver(string path)
+        public void Configure(RenderConfig config)
         {
-            this.path = path;
+            path = config.Path;
+            delay = config.Delay;
             collection = new MagickImageCollection();
         }
 
@@ -23,7 +24,7 @@ namespace GUI.Models.Savers
             bmp.Save(framePath);
 
             collection.Add(framePath);
-            collection.Last().AnimationDelay = 1;
+            collection.Last().AnimationDelay = delay;
         }
 
         public void Save()

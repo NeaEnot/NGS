@@ -77,7 +77,7 @@ namespace GUI.Models
 
         internal void SaveUniverseState(UniverseState state, Date date)
         {
-            string statePath = GetCurrentFileName(date.ToString());
+            string statePath = GetCurrentFileName(date);
 
             using (StreamWriter writer = new StreamWriter(statePath))
             {
@@ -88,7 +88,7 @@ namespace GUI.Models
 
         internal UniverseState LoadUniverseState(HistorySummary summary)
         {
-            using (StreamReader reader = new StreamReader(GetCurrentFileName(summary.Date)))
+            using (StreamReader reader = new StreamReader(GetCurrentFileName(Date.Parse(summary.Date))))
             {
                 string json = reader.ReadToEnd();
                 UniverseState restored = JsonConvert.DeserializeObject<UniverseState>(json);
@@ -96,23 +96,21 @@ namespace GUI.Models
             }
         }
 
-        private string GetCurrentFileName(string date)
+        private string GetCurrentFileName(Date date)
         {
-            string[] sdate = date.Split('.');
-
-            DirectoryInfo leodrDir = new DirectoryInfo($@"{path}\History\{sdate[0]}");
+            DirectoryInfo leodrDir = new DirectoryInfo($@"{path}\History\{date.Leodr}");
             if (!leodrDir.Exists)
                 leodrDir.Create();
 
-            DirectoryInfo milleniumDir = new DirectoryInfo(@$"{path}\History\{sdate[0]}\{sdate[1]}");
+            DirectoryInfo milleniumDir = new DirectoryInfo(@$"{path}\History\{date.Leodr}\{date.Millenium}");
             if (!milleniumDir.Exists)
                 milleniumDir.Create();
 
-            DirectoryInfo yearDir = new DirectoryInfo(@$"{path}\History\{sdate[0]}\{sdate[1]}\{sdate[2]}");
+            DirectoryInfo yearDir = new DirectoryInfo(@$"{path}\History\{date.Leodr}\{date.Millenium}\{date.Year}");
             if (!yearDir.Exists)
                 yearDir.Create();
 
-            return $@"{path}\History\{sdate[0]}\{sdate[1]}\{sdate[2]}\{sdate[3]}.ngsus";
+            return $@"{path}\History\{date.Leodr}\{date.Millenium}\{date.Year}\{date.Day}.ngsus";
         }
     }
 }

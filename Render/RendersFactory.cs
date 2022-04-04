@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Render.Renders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Render
 {
     /// <include file='Documentation.xml' path='documentation/members[@name="RendersFactory"]/RendersFactory/*'/>
     public static class RendersFactory
     {
-        private static Dictionary<string, Func<IRender>> renders = new Dictionary<string, Func<IRender>>();
+        private static Dictionary<string, Func<IRender>> renders = new Dictionary<string, Func<IRender>>()
+        {
+            { "Jpegs collection", () => new JpegsRender() },
+            { "Gif file", () => new GifRender() }
+        };
 
         /// <include file='Documentation.xml' path='documentation/members[@name="RendersFactory"]/GetRendersNames/*'/>
         public static List<string> GetRendersNames()

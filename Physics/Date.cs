@@ -6,14 +6,21 @@ namespace Physics
     /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Date/*'/>
     public class Date
     {
-        private static uint maxDays = 365;
-        private static uint maxYears = 1000;
-        private static uint maxMilleniums = 1000;
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/maxDays/*'/>
+        public readonly static uint maxDays = 365;
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/maxYears/*'/>
+        public readonly static uint maxYears = 1000;
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/maxMilleniums/*'/>
+        public readonly static uint maxMilleniums = 1000;
 
-        private uint day;
-        private uint year;
-        private uint millenium;
-        private uint leodr;
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Day/*'/>
+        public uint Day { get; private set; }
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Year/*'/>
+        public uint Year { get; private set; }
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Millenium/*'/>
+        public uint Millenium { get; private set; }
+        /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Leodr/*'/>
+        public uint Leodr { get; private set; }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Constructor/*'/>
         public Date(uint day = 0, uint year = 0, uint millenium = 0, uint leodr = 0)
@@ -21,19 +28,19 @@ namespace Physics
             if (day > maxDays || year > maxYears || millenium > maxMilleniums)
                 throw new Exception($"Неверные значения. Должно быть:\n day < {maxDays}\n year < {maxYears}\n millenium < {maxMilleniums}");
 
-            this.day = day;
-            this.year = year;
-            this.millenium = millenium;
-            this.leodr = leodr;
+            this.Day = day;
+            this.Year = year;
+            this.Millenium = millenium;
+            this.Leodr = leodr;
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/NextDay/*'/>
         public Date NextDay()
         {
-            uint day = this.day;
-            uint year = this.year;
-            uint millenium = this.millenium;
-            uint leodr = this.leodr;
+            uint day = this.Day;
+            uint year = this.Year;
+            uint millenium = this.Millenium;
+            uint leodr = this.Leodr;
 
             day++;
 
@@ -62,10 +69,10 @@ namespace Physics
         public override string ToString()
         {
             return 
-                leodr.ToString("00000000") + "." +
-                millenium.ToString("000") + "." +
-                year.ToString("000") + "." +
-                day.ToString("000");
+                Leodr.ToString("00000000") + "." +
+                Millenium.ToString("000") + "." +
+                Year.ToString("000") + "." +
+                Day.ToString("000");
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/Parse/*'/>
@@ -81,10 +88,10 @@ namespace Physics
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorPlus/*'/>
         public static Date operator +(Date d1, Date d2)
         {
-            uint day = d1.day + d2.day;
-            uint year = d1.year + d2.year;
-            uint millenium = d1.millenium + d2.millenium;
-            uint leodr = d1.leodr + d2.leodr;
+            uint day = d1.Day + d2.Day;
+            uint year = d1.Year + d2.Year;
+            uint millenium = d1.Millenium + d2.Millenium;
+            uint leodr = d1.Leodr + d2.Leodr;
 
             if (day >= maxDays)
             {
@@ -110,54 +117,54 @@ namespace Physics
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorMore/*'/>
         public static bool operator >(Date d1, Date d2)
         {
-            if (d1.leodr == d2.leodr)
+            if (d1.Leodr == d2.Leodr)
             {
-                if (d1.millenium == d2.millenium)
+                if (d1.Millenium == d2.Millenium)
                 {
-                    if (d1.year == d2.year)
+                    if (d1.Year == d2.Year)
                     {
-                        return d1.day > d2.day;
+                        return d1.Day > d2.Day;
                     }
                     else
                     {
-                        return d1.year > d2.year;
+                        return d1.Year > d2.Year;
                     }
                 }
                 else
                 {
-                    return d1.millenium > d2.millenium;
+                    return d1.Millenium > d2.Millenium;
                 }
             }
             else
             {
-                return d1.leodr > d2.leodr;
+                return d1.Leodr > d2.Leodr;
             }
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorLess/*'/>
         public static bool operator <(Date d1, Date d2)
         {
-            if (d1.leodr == d2.leodr)
+            if (d1.Leodr == d2.Leodr)
             {
-                if (d1.millenium == d2.millenium)
+                if (d1.Millenium == d2.Millenium)
                 {
-                    if (d1.year == d2.year)
+                    if (d1.Year == d2.Year)
                     {
-                        return d1.day < d2.day;
+                        return d1.Day < d2.Day;
                     }
                     else
                     {
-                        return d1.year < d2.year;
+                        return d1.Year < d2.Year;
                     }
                 }
                 else
                 {
-                    return d1.millenium < d2.millenium;
+                    return d1.Millenium < d2.Millenium;
                 }
             }
             else
             {
-                return d1.leodr < d2.leodr;
+                return d1.Leodr < d2.Leodr;
             }
         }
 
@@ -165,20 +172,20 @@ namespace Physics
         public static bool operator ==(Date d1, Date d2)
         {
             return
-                d1.leodr == d2.leodr &&
-                d1.millenium == d2.millenium &&
-                d1.year == d2.year &&
-                d1.day == d2.day;
+                d1.Leodr == d2.Leodr &&
+                d1.Millenium == d2.Millenium &&
+                d1.Year == d2.Year &&
+                d1.Day == d2.Day;
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Date"]/operatorInequality/*'/>
         public static bool operator !=(Date d1, Date d2)
         {
             return !(
-                d1.leodr == d2.leodr &&
-                d1.millenium == d2.millenium &&
-                d1.year == d2.year &&
-                d1.day == d2.day
+                d1.Leodr == d2.Leodr &&
+                d1.Millenium == d2.Millenium &&
+                d1.Year == d2.Year &&
+                d1.Day == d2.Day
                 );
         }
     }

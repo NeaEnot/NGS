@@ -55,5 +55,10 @@
 				Задержка между кадрами.
 			</summary>
 		</Delay>
+		<StartDate>
+			<summary>
+				Дата начала рендера.
+			</summary>
+		</StartDate>
 	</members>
 </documentation>

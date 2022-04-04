@@ -176,6 +176,41 @@
 				Статический метод, преобразующий строку вида llllllll.mmm.yyy.ddd в модель даты.
 			</summary>
 		</Parse>
+		<Day>
+			<summary>
+				Возвращает день текущего года данного экземпляра даты.
+			</summary>
+		</Day>
+		<Year>
+			<summary>
+				Возвращает год текущего миллениума данного экземпляра даты.
+			</summary>
+		</Year>
+		<Millenium>
+			<summary>
+				Возвращает миллениум текущего леодра данного экземпляра даты.
+			</summary>
+		</Millenium>
+		<Leodr>
+			<summary>
+				Возвращает текущий леодр данного экземпляра даты.
+			</summary>
+		</Leodr>
+		<maxDays>
+			<summary>
+				Количество дней в году.
+			</summary>
+		</maxDays>
+		<maxYears>
+			<summary>
+				Количество лет в миллениуме.
+			</summary>
+		</maxYears>
+		<maxMilleniums>
+			<summary>
+				Количество миллениумов в леодре.
+			</summary>
+		</maxMilleniums>
 		<operatorPlus>
 			<summary>
 				Возвращает новую дату, полученную путём сложения двух передаваемых дат.

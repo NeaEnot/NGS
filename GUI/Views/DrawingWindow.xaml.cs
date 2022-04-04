@@ -1,6 +1,5 @@
 ﻿using Drawing;
 using Drawing.Centers;
-using GUI.Models.Savers;
 using Ookii.Dialogs.Wpf;
 using Physics;
 using System;
@@ -23,7 +22,7 @@ namespace GUI.Views
         private Universe universe;
 
         private DrawingLogic logic;
-        private ISaver saver;
+        //private ISaver saver;
 
         private CancellationTokenSource cts;
 
@@ -141,8 +140,8 @@ namespace GUI.Views
 
                     if (cts.Token.IsCancellationRequested)
                     {
-                        if (saver != null)
-                            saver.Save();
+                        //if (saver != null)
+                        //    saver.Save();
                         return;
                     }
                 }
@@ -221,24 +220,24 @@ namespace GUI.Views
                     switch (cbSaveType.SelectedItem)
                     {
                         case "jpegs":
-                            saver = new JpegsSaver(path);
+                            //saver = new JpegsSaver(path);
                             break;
                         case "gif":
-                            saver = new GifSaver(path);
+                            //saver = new GifSaver(path);
                             break;
                     }
                 }
                 catch
                 {
-                    saver = null;
+                    //saver = null;
                 }
             }
         }
 
         private void SaveFrame(Bitmap bmp)
         {
-            if (saver != null)
-                saver.AddFrame(bmp);
+            //if (saver != null)
+            //    saver.AddFrame(bmp);
         }
     }
 }

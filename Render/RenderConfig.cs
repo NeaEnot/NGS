@@ -1,4 +1,6 @@
-﻿namespace Render
+﻿using Physics;
+
+namespace Render
 {
     /// <include file='Documentation.xml' path='documentation/members[@name="RenderConfig"]/RenderConfig/*'/>
     public class RenderConfig
@@ -7,5 +9,7 @@
         public string Path { get; set; }
         /// <include file='Documentation.xml' path='documentation/members[@name="RenderConfig"]/Delay/*'/>
         public int Delay { get; set; }
+        /// <include file='Documentation.xml' path='documentation/members[@name="RenderConfig"]/StartDate/*'/>
+        public Date StartDate { get; set; }
     }
 }
