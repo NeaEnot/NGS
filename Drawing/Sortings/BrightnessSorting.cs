@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Drawing.Sortings
 {
-    class BrightnessSorting : ISorting
+    public class BrightnessSorting : ISorting
     {
         private Order order;
 
@@ -19,6 +19,11 @@ namespace Drawing.Sortings
                 return bodies.OrderBy(rec => BrightnessCalc.Calc(rec.ColorHex)).ToList();
             else
                 return bodies.OrderByDescending(rec => BrightnessCalc.Calc(rec.ColorHex)).ToList();
+        }
+
+        public override string ToString()
+        {
+            return "По освещению (" + (order == Order.Ascending ? "прям." : "обр.") + ")";
         }
     }
 }

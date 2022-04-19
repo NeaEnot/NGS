@@ -1,0 +1,40 @@
+﻿<Window x:Class="GUI.Views.CenterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI.Views"
+        mc:Ignorable="d"
+        Title="Центрирование" Height="331" Width="203">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Name="tabs" Grid.Row="0">
+            <TabItem Header="Координаты">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="X" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Y" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+
+                    <TextBox Name="tbX" Margin="32,14,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <TextBox Name="tbY" Margin="32,45,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Тело">
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox Name="cbBodies" Margin="10,10,10,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Центр масс">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox Name="lbBodies" SelectionMode="Multiple"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Button Content="Сохранить" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="25" Width="77" Click="Button_Click"/>
+
+    </Grid>
+</Window>

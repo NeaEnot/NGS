@@ -11,35 +11,35 @@ namespace GUI.Models
 {
     internal class Context
     {
-        private string path;
+        public string Path { get; private set; }
 
         internal Context(string path)
         {
-            this.path = path;
+            this.Path = path;
             CreateDirs();
         }
 
         private void CreateDirs()
         {
-            DirectoryInfo dirHistory = new DirectoryInfo($@"{path}\History");
+            DirectoryInfo dirHistory = new DirectoryInfo($@"{Path}\History");
             if (!dirHistory.Exists)
                 dirHistory.Create();
 
-            FileInfo fileHistorySummary = new FileInfo($@"{path}\History\summary.ngshs");
+            FileInfo fileHistorySummary = new FileInfo($@"{Path}\History\summary.ngshs");
             if (!fileHistorySummary.Exists)
             {
                 HistorySummary historySummary = new HistorySummary { Date = "00000000.000.000.000" };
                 SaveHistorySummary(historySummary);
             }
 
-            DirectoryInfo dirRenders = new DirectoryInfo($@"{path}\Renders");
+            DirectoryInfo dirRenders = new DirectoryInfo($@"{Path}\Renders");
             if (!dirRenders.Exists)
                 dirRenders.Create();
         }
 
         internal void SaveUniverse(Universe universe)
         {
-            using (StreamWriter writer = new StreamWriter($@"{path}\universe.ngsu"))
+            using (StreamWriter writer = new StreamWriter($@"{Path}\universe.ngsu"))
             {
                 string json = JsonConvert.SerializeObject(universe);
                 writer.Write(json);
@@ -48,7 +48,7 @@ namespace GUI.Models
 
         internal Universe LoadUniverse()
         {
-            using (StreamReader reader = new StreamReader($@"{path}\universe.ngsu"))
+            using (StreamReader reader = new StreamReader($@"{Path}\universe.ngsu"))
             {
                 string json = reader.ReadToEnd();
                 Universe restored = JsonConvert.DeserializeObject<Universe>(json);
@@ -58,7 +58,7 @@ namespace GUI.Models
 
         internal void SaveHistorySummary(HistorySummary summary)
         {
-            using (StreamWriter writer = new StreamWriter($@"{path}\History\summary.ngshs"))
+            using (StreamWriter writer = new StreamWriter($@"{Path}\History\summary.ngshs"))
             {
                 string json = JsonConvert.SerializeObject(summary);
                 writer.Write(json);
@@ -67,7 +67,7 @@ namespace GUI.Models
 
         internal HistorySummary LoadHistorySummary()
         {
-            using (StreamReader reader = new StreamReader($@"{path}\History\summary.ngshs"))
+            using (StreamReader reader = new StreamReader($@"{Path}\History\summary.ngshs"))
             {
                 string json = reader.ReadToEnd();
                 HistorySummary restored = JsonConvert.DeserializeObject<HistorySummary>(json);
@@ -98,19 +98,19 @@ namespace GUI.Models
 
         private string GetCurrentFileName(Date date)
         {
-            DirectoryInfo leodrDir = new DirectoryInfo($@"{path}\History\{date.Leodr}");
+            DirectoryInfo leodrDir = new DirectoryInfo($@"{Path}\History\{date.Leodr}");
             if (!leodrDir.Exists)
                 leodrDir.Create();
 
-            DirectoryInfo milleniumDir = new DirectoryInfo(@$"{path}\History\{date.Leodr}\{date.Millenium}");
+            DirectoryInfo milleniumDir = new DirectoryInfo(@$"{Path}\History\{date.Leodr}\{date.Millenium}");
             if (!milleniumDir.Exists)
                 milleniumDir.Create();
 
-            DirectoryInfo yearDir = new DirectoryInfo(@$"{path}\History\{date.Leodr}\{date.Millenium}\{date.Year}");
+            DirectoryInfo yearDir = new DirectoryInfo(@$"{Path}\History\{date.Leodr}\{date.Millenium}\{date.Year}");
             if (!yearDir.Exists)
                 yearDir.Create();
 
-            return $@"{path}\History\{date.Leodr}\{date.Millenium}\{date.Year}\{date.Day}.ngsus";
+            return $@"{Path}\History\{date.Leodr}\{date.Millenium}\{date.Year}\{date.Day}.ngsus";
         }
     }
 }

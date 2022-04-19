@@ -1,5 +1,6 @@
 ﻿using Drawing.Centers;
 using Drawing.Sortings;
+using Physics;
 
 namespace Drawing
 {
@@ -10,5 +11,6 @@ namespace Drawing
         public double Distance { get; set; }
         public ICenter Center { get; set; }
         public ISorting Sorting { get; set; }
+        public UniverseState UniverseState { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Drawing.Sortings
 {
-    class MassSorting : ISorting
+    public class MassSorting : ISorting
     {
         private Order order;
 
@@ -19,6 +19,11 @@ namespace Drawing.Sortings
                 return bodies.OrderBy(rec => rec.Mass).ToList();
             else
                 return bodies.OrderByDescending(rec => rec.Mass).ToList();
+        }
+
+        public override string ToString()
+        {
+            return "По массе (" + (order == Order.Ascending ? "прям." : "обр.") + ")";
         }
     }
 }

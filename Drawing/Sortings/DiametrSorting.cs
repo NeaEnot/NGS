@@ -20,5 +20,10 @@ namespace Drawing.Sortings
             else
                 return bodies.OrderByDescending(rec => rec.D).ToList();
         }
+
+        public override string ToString()
+        {
+            return "По диаметру (" + (order == Order.Ascending ? "прям." : "обр.") + ")";
+        }
     }
 }
