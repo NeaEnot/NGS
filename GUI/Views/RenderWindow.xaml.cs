@@ -7,6 +7,7 @@ using Render;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,7 +92,7 @@ namespace GUI.Views
                 IRender render = RendersFactory.GetRender(format);
                 RenderConfig config = new RenderConfig
                 {
-                    Path = context.Path + @"\renders\" + DateTime.Now.ToString("yyyy.MM.HH.mm.ss.ff"),
+                    Path = CreateDir(format).FullName,
                     Delay = delay,
                     StartDate = start
                 };
@@ -121,6 +122,19 @@ namespace GUI.Views
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private DirectoryInfo CreateDir(string format)
+        {
+            DirectoryInfo formatDir = new DirectoryInfo(@$"{context.Path}\Renders\{format}");
+            if (!formatDir.Exists)
+                formatDir.Create();
+
+            DirectoryInfo dir = new DirectoryInfo(@$"{context.Path}\Renders\{format}\{DateTime.Now.ToString("yyyy.MM.HH.mm.ss.ff")}");
+            if (!dir.Exists)
+                dir.Create();
+
+            return dir;
         }
     }
 }

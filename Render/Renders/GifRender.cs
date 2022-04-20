@@ -35,7 +35,7 @@ namespace Render.Renders
 
             collection.Optimize();
 
-            collection.Write($"{path}\\universe.gif");
+            collection.Write($@"{path}\universe.gif");
         }
     }
 }

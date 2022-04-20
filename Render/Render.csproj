@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="9.0.0" />
+    <PackageReference Include="SharpAvi.NetStandard" Version="2.1.2" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 

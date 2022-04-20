@@ -11,7 +11,8 @@ namespace Render
         private static Dictionary<string, Func<IRender>> renders = new Dictionary<string, Func<IRender>>()
         {
             { "Jpegs collection", () => new JpegsRender() },
-            { "Gif file", () => new GifRender() }
+            { "Gif file", () => new GifRender() },
+            { "Avi file", () => new AviRender() },
         };
 
         /// <include file='Documentation.xml' path='documentation/members[@name="RendersFactory"]/GetRendersNames/*'/>
