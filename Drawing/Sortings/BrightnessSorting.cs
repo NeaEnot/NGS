@@ -13,12 +13,12 @@ namespace Drawing.Sortings
             this.order = order;
         }
 
-        List<Body> ISorting.Sort(List<Body> bodies)
+        List<BodyState> ISorting.Sort(List<BodyState> bodyStates, List<Body> bodies)
         {
             if (order == Order.Ascending)
-                return bodies.OrderBy(rec => BrightnessCalc.Calc(rec.ColorHex)).ToList();
+                return bodyStates.OrderBy(rec => BrightnessCalc.Calc(bodies.First(b => b.Id == rec.Id).ColorHex)).ToList();
             else
-                return bodies.OrderByDescending(rec => BrightnessCalc.Calc(rec.ColorHex)).ToList();
+                return bodyStates.OrderByDescending(rec => BrightnessCalc.Calc(bodies.First(b => b.Id == rec.Id).ColorHex)).ToList();
         }
 
         public override string ToString()

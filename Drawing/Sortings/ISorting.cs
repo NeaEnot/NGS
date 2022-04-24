@@ -5,6 +5,6 @@ namespace Drawing.Sortings
 {
     public interface ISorting
     {
-        internal List<Body> Sort(List<Body> bodies);
+        internal List<BodyState> Sort(List<BodyState> bodyStates, List<Body> bodies);
     }
 }

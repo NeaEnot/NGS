@@ -13,12 +13,12 @@ namespace Drawing.Sortings
             this.order = order;
         }
 
-        List<Body> ISorting.Sort(List<Body> bodies)
+        List<BodyState> ISorting.Sort(List<BodyState> bodyStates, List<Body> bodies)
         {
             if (order == Order.Ascending)
-                return bodies.OrderBy(rec => rec.Mass).ToList();
+                return bodyStates.OrderBy(rec => bodies.First(b => b.Id == rec.Id).Mass).ToList();
             else
-                return bodies.OrderByDescending(rec => rec.Mass).ToList();
+                return bodyStates.OrderByDescending(rec => bodies.First(b => b.Id == rec.Id).Mass).ToList();
         }
 
         public override string ToString()
