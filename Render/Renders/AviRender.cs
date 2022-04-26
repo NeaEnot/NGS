@@ -44,6 +44,9 @@ namespace Render.Renders
         private byte[] BitmapToByteArray(Bitmap bitmap)
         {
             BitmapData bmpdata = null;
+            Image img = Image.FromHbitmap(bitmap.GetHbitmap());
+            img.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            bitmap = new Bitmap(img);
 
             try
             {
