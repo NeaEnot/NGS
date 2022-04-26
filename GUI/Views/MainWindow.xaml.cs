@@ -83,6 +83,7 @@ namespace GUI.Views
             {
                 universe = window.Universe;
                 context = null;
+                Load();
             }
         }
 
@@ -125,7 +126,8 @@ namespace GUI.Views
 
         private void miRender_Click(object sender, RoutedEventArgs e)
         {
-
+            RenderWindow window = new RenderWindow(context, universe);
+            window.ShowDialog();
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)

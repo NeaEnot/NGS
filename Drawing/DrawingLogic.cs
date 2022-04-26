@@ -1,4 +1,5 @@
-﻿using Physics;
+﻿using Drawing.Centers;
+using Physics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,14 +14,14 @@ namespace Drawing
         private Universe universe;
 
         private int imprintIntensity;
-        private Bitmap prevBmp;
         private Bitmap trajectoryBmp;
 
         private UniverseState prevState;
+        private Vector prevCenter;
 
         private Color background = Color.Black;
 
-        public DrawingLogic(Universe universe, int imprintIntensity = 250)
+        public DrawingLogic(Universe universe, int imprintIntensity = 200)
         {
             this.universe = universe;
             this.imprintIntensity = imprintIntensity;
@@ -38,7 +39,16 @@ namespace Drawing
             gr.Clear(background);
 
             if (trajectoryBmp != null)
+            {
                 gr.DrawImage(DrawTraectory(p), 0, 0);
+            }
+            else
+            {
+                trajectoryBmp = new Bitmap((int)p.W, (int)p.H);
+                prevCenter = p.Center.Center;
+                Graphics grt = Graphics.FromImage(bmp);
+                grt.Clear(background);
+            }
 
             List<BodyState> bodyStates = p.Sorting != null ? p.Sorting.Sort(p.UniverseState.BodyStates, universe.Bodies) : p.UniverseState.BodyStates;
 
@@ -59,36 +69,50 @@ namespace Drawing
                 gr.FillEllipse(brush, px, py, (int)d, (int)d);
             }
 
+            prevState = p.UniverseState;
+
             return bmp;
         }
 
         private Bitmap DrawTraectory(DrawingParams p)
         {
-            Bitmap bmp = Impose(trajectoryBmp);
+            Bitmap bmp = trajectoryBmp;
             Graphics gr = Graphics.FromImage(bmp);
 
             Vector c = p.Center.Center;
             int xStart = (int)(c.Vx / (p.Center.IsScaled ? p.Distance : 1) - p.W / 2);
             int yStart = (int)(c.Vy / (p.Center.IsScaled ? p.Distance : 1) - p.H / 2);
+            int pxStart = (int)(prevCenter.Vx / (p.Center.IsScaled ? p.Distance : 1) - p.W / 2);
+            int pyStart = (int)(prevCenter.Vy / (p.Center.IsScaled ? p.Distance : 1) - p.H / 2);
 
             foreach (BodyState bodyState in p.UniverseState.BodyStates)
             {
                 double x = bodyState.X / p.Distance;
                 double y = bodyState.Y / p.Distance;
+                double px = prevState.BodyStates.First(req => req.Id == bodyState.Id).X / p.Distance;
+                double py = prevState.BodyStates.First(req => req.Id == bodyState.Id).Y / p.Distance;
 
                 if ((Math.Abs(x - c.Vx / p.Distance) > p.W || Math.Abs(y - c.Vy / p.Distance) > p.H) &&
                     (Math.Abs(prevState.BodyStates.First(req => req.Id == bodyState.Id).X - c.Vx / p.Distance) > p.W ||
                     Math.Abs(prevState.BodyStates.First(req => req.Id == bodyState.Id).Y - c.Vy / p.Distance) > p.H))
                     continue;
 
-                int ppx = (int)(prevState.BodyStates.First(req => req.Id == bodyState.Id).X - xStart);
-                int ppy = (int)(prevState.BodyStates.First(req => req.Id == bodyState.Id).Y - yStart);
+                int ppx = (int)(px - pxStart);
+                int ppy = (int)(py - pyStart);
                 int pcx = (int)(x - xStart);
                 int pcy = (int)(y - yStart);
+
+                int a = 0;
+                if (bodyState.Id == "f")
+                    a = 1;
 
                 Pen pen = new Pen((Color)converter.ConvertFromString(universe.Bodies.First(req => req.Id == bodyState.Id).ColorHex));
                 gr.DrawLine(pen, ppx, ppy, pcx, pcy);
             }
+
+            prevState = p.UniverseState;
+            prevCenter = p.Center.Center;
+            trajectoryBmp = Impose(bmp);
 
             return bmp;
         }

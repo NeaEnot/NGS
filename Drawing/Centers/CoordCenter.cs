@@ -1,4 +1,5 @@
 ﻿using Physics;
+using System.Collections.Generic;
 
 namespace Drawing.Centers
 {
@@ -8,6 +9,8 @@ namespace Drawing.Centers
         private double y;
 
         public Vector Center => new Vector { Vx = x, Vy = y };
+
+        public List<BodyState> BodyStates { private get; set; }
 
         public bool IsScaled => false;
 

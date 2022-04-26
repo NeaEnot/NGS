@@ -248,8 +248,28 @@
 				Метод, вычисляющий яркость цвета по его hex-строке.
 			</summary>
 			<param name="colorHex">
-				Строковое шестнадцатеричное представление строки в формате '#abcdef'
+				Строковое шестнадцатеричное представление строки в формате '#abcdef'.
 			</param>
 		</Calc>
+	</members>
+	<members name="IdHelper">
+		<IdHelper>
+			<summary>
+				Класс, позволяющий дать телу уникальный в пределах вселенной Id.
+			</summary>
+		</IdHelper>
+		<Constructor>
+			<summary>
+				Конструктор, привязвающий объект ко вселенной.
+			</summary>
+			<param name="universe">
+				Привязываемая вселенная.
+			</param>
+		</Constructor>
+		<GetId>
+			<summary>
+				Метод, возвращающий уникальный в пределах вселенной Id для тела.
+			</summary>
+		</GetId>
 	</members>
 </documentation>

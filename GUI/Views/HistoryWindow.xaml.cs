@@ -48,6 +48,7 @@ namespace GUI.Views
             {
                 Body body = new Body
                 {
+                    Id = bodyO.Id,
                     X = bodyO.X,
                     Y = bodyO.Y,
                     D = bodyO.D,

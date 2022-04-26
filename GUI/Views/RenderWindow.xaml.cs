@@ -101,6 +101,7 @@ namespace GUI.Views
                 for (Date current = start; current < end; current = current.NextDay())
                 {
                     UniverseState state = context.LoadUniverseState(new HistorySummary { Date = current.ToString() });
+                    center.BodyStates = state.BodyStates;
 
                     DrawingParams p = new DrawingParams
                     {

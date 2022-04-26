@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI.Views"
         mc:Ignorable="d"
-        Title="Центрирование" Height="331" Width="203">
+        Title="Центрирование" Height="331" Width="295">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition/>
+            <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
 
         <TabControl Name="tabs" Grid.Row="0">

@@ -14,14 +14,10 @@ namespace Physics
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Bodies/*'/>
         public List<Body> Bodies { get; private set; }
 
-        private IdHelper idHelper;
-
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/Constructor/*'/>
         public Universe()
         {
             Bodies = new List<Body>();
-            idHelper = new IdHelper(Bodies.Select(req => req.Id).ToList());
-            Body.IdHelper = idHelper;
         }
 
         /// <include file='Documentation.xml' path='documentation/members[@name="Universe"]/ToState/*'/>

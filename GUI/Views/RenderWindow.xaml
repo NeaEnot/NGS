@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI.Views"
         mc:Ignorable="d"
-        Title="Рендер" Height="423" Width="290" MinHeight="285" MinWidth="290">
+        Title="Рендер" Height="423" Width="316" MinHeight="285" MinWidth="290">
     <Grid>
         <Label Content="Ширина кадра" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Высота кадра" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
@@ -28,6 +28,6 @@
         <ComboBox Name="cbSorting" Margin="140,229,10,0" VerticalAlignment="Top"/>
         <ComboBox Name="cbFormat" Margin="140,260,10,0" VerticalAlignment="Top"/>
 
-        <Button Name="btnStart" Content="Старт" HorizontalAlignment="Center" Margin="0,0,0,23" VerticalAlignment="Bottom" Height="30" Width="90" Click="btnStart_Click"/>
+        <Button Name="btnStart" Content="Старт" HorizontalAlignment="Center" Margin="0,0,0,40" VerticalAlignment="Bottom" Height="30" Width="90" Click="btnStart_Click"/>
     </Grid>
 </Window>

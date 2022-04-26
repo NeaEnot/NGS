@@ -60,7 +60,7 @@ namespace GUI.Views
 
         private void chbG_Checked(object sender, RoutedEventArgs e)
         {
-            tbG.IsEnabled = chbG.IsChecked.Value;
+            tbG.IsEnabled = !chbG.IsChecked.Value;
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -73,8 +73,9 @@ namespace GUI.Views
                 double g = !chbG.IsChecked.Value ? double.Parse(tbG.Text) : rnd.NextDouble() * 100;
 
                 Universe = new Universe { Name = tbName.Text, G = g };
+                IdHelper idHelper = new IdHelper(Universe);
 
-                if (chbEmpty.IsChecked.Value)
+                if (!chbEmpty.IsChecked.Value)
                 {
                     uint count = uint.Parse(tbCount.Text);
 
@@ -92,7 +93,7 @@ namespace GUI.Views
                     if (coordsRangeMin > coordsRangeMax || dMin > dMax || brightnessMin > brightnessMax || vMin > vMax)
                         throw new Exception("Минимальное значение не может быть больше максимального.");
 
-                    for (int i = 0; i < count; i++)
+                    for (uint i = 0; i < count; i++)
                     {
                         double x = coordsRangeMin + rnd.NextDouble() * (coordsRangeMax - coordsRangeMin);
                         double y = coordsRangeMin + rnd.NextDouble() * (coordsRangeMax - coordsRangeMin);
@@ -111,6 +112,7 @@ namespace GUI.Views
 
                         Body body = new Body
                         {
+                            Id = idHelper.GetId(),
                             X = x,
                             Y = y,
                             Velocity = new Vector { Vx = vx, Vy = vy },
@@ -135,7 +137,7 @@ namespace GUI.Views
         {
             while (true)
             {
-                uint ui = (uint)new Random().Next(-int.MaxValue, int.MaxValue);
+                uint ui = (uint)new Random().Next(-int.MaxValue, int.MaxValue) % (max - min) + min;
                 if (ui >= min && ui < max)
                     return ui;
             }

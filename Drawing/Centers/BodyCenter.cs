@@ -1,5 +1,7 @@
 ﻿using Physics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Drawing.Centers
 {
@@ -7,7 +9,9 @@ namespace Drawing.Centers
     {
         private Body body;
 
-        public Vector Center => new Vector { Vx = body.X, Vy = body.Y };
+        public Vector Center => new Vector { Vx = BodyStates.First(req => req.Id == body.Id).X, Vy = BodyStates.First(req => req.Id == body.Id).Y };
+
+        public List<BodyState> BodyStates { private get; set; }
 
         public bool IsScaled => true;
 

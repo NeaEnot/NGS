@@ -56,9 +56,9 @@ namespace GUI.Views
 
                         break;
                     case 2:
-                        List<Body> bodies = lbBodies.SelectedItems as List<Body>;
+                        var bodies = lbBodies.SelectedItems;
 
-                        Center = new MassCenter(bodies);
+                        Center = new MassCenter(bodies.Cast<Body>().ToList());
 
                         DialogResult = true;
 

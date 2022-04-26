@@ -8,21 +8,21 @@
         Title="Генерация вселенной" Height="562" Width="532" MinHeight="562" MinWidth="532">
     <Grid>
         <TextBox Name="tbName" HorizontalAlignment="Right" Margin="0,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256"/>
-        <CheckBox Name="chbEmpty" Content="Пустая вселенная" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Checked="chbEmpty_Checked"/>
+        <CheckBox Name="chbEmpty" Content="Пустая вселенная" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Checked="chbEmpty_Checked" Unchecked="chbEmpty_Checked"/>
 
         <TextBox Name="tbCount" HorizontalAlignment="Right" Margin="0,83,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbCoordsRangeMin" HorizontalAlignment="Right" Margin="0,114,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbCoordsRangeMax" HorizontalAlignment="Right" Margin="0,144,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbDMin" HorizontalAlignment="Right" Margin="0,176,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbDMax" HorizontalAlignment="Right" Margin="0,206,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
+        <CheckBox Name="chbDependence" Content="Зависимость массы от диаметра" HorizontalAlignment="Left" Margin="15,234,0,0" VerticalAlignment="Top" Checked="chbDependence_Checked" Unchecked="chbDependence_Checked"/>
         <TextBox Name="tbDependence" HorizontalAlignment="Right" Margin="0,232,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbMassMin" HorizontalAlignment="Right" Margin="0,258,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
-        <CheckBox Name="chbDependence" Content="Зависимость массы от диаметра" HorizontalAlignment="Left" Margin="15,234,0,0" VerticalAlignment="Top" Checked="chbDependence_Checked"/>
         <TextBox Name="tbVMin" HorizontalAlignment="Right" Margin="0,288,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbVMax" HorizontalAlignment="Right" Margin="0,320,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbBrightnessMin" HorizontalAlignment="Right" Margin="0,350,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
         <TextBox Name="tbBrightnessMax" HorizontalAlignment="Right" Margin="0,382,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
-        <CheckBox Name="chbG" Content="G (рандомный)" HorizontalAlignment="Left" Margin="10,408,0,0" VerticalAlignment="Top" Checked="chbG_Checked"/>
+        <CheckBox Name="chbG" Content="G (рандомный)" HorizontalAlignment="Left" Margin="10,408,0,0" VerticalAlignment="Top" Checked="chbG_Checked" Unchecked="chbG_Checked"/>
         <TextBox Name="tbG" HorizontalAlignment="Right" Margin="0,408,11,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255"/>
 
         <Label Content="Название" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
@@ -38,6 +38,6 @@
         <Label Content="Яркость тел мин." HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top"/>
         <Label Content="Яркость тел макс." HorizontalAlignment="Left" Margin="10,378,0,0" VerticalAlignment="Top"/>
 
-        <Button Name="btnCreate" Content="Создать" HorizontalAlignment="Center" Margin="0,487,0,31" Width="90" Click="btnCreate_Click" RenderTransformOrigin="0.472,0.317"/>
+        <Button Name="btnCreate" Content="Создать" HorizontalAlignment="Center" Margin="0,0,0,46" Width="90" Click="btnCreate_Click" RenderTransformOrigin="0.472,0.317" Height="28" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

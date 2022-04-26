@@ -5,18 +5,21 @@ using System.Text;
 
 namespace Physics
 {
-    internal class IdHelper
+    /// <include file='Documentation.xml' path='documentation/members[@name="IdHelper"]/IdHelper/*'/>
+    public class IdHelper
     {
         private static string alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        private List<string> ids;
+        private Universe universe;
 
-        internal IdHelper(List<string> ids)
+        /// <include file='Documentation.xml' path='documentation/members[@name="IdHelper"]/Constructor/*'/>
+        public IdHelper(Universe universe)
         {
-            this.ids = ids;
+            this.universe = universe;
         }
 
-        internal string GetId()
+        /// <include file='Documentation.xml' path='documentation/members[@name="IdHelper"]/GetId/*'/>
+        public string GetId()
         {
             string answer = "";
             int i = 2;
@@ -34,13 +37,11 @@ namespace Physics
 
                 answer = builder.ToString();
 
-                if (!ids.Contains(answer))
+                if (universe.Bodies.Count(req => req.Id == answer) == 0)
                     break;
 
                 i++;
             }
-
-            ids.Add(answer);
 
             return answer;
         }

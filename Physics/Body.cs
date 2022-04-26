@@ -5,8 +5,6 @@ namespace Physics
     /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/Body/*'/>
     public class Body
     {
-        internal static IdHelper IdHelper { get; set;}
-
         /// <include file='Documentation.xml' path='documentation/members[@name="Body"]/Id/*'/>
         public string Id { get; set; }
 
@@ -27,7 +25,6 @@ namespace Physics
 
         public Body()
         {
-            Id = IdHelper.GetId();
             Velocity = new Vector { Vx = 0, Vy = 0 };
         }
 

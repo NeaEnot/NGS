@@ -11,9 +11,11 @@ namespace Drawing.Centers
         public Vector Center =>
             new Vector
             {
-                Vx = bodies.Sum(req => req.X * req.Mass) / bodies.Sum(req => req.X),
-                Vy = bodies.Sum(req => req.Y * req.Mass) / bodies.Sum(req => req.Y)
+                Vx = bodies.Sum(req => BodyStates.First(b => b.Id == req.Id).X * req.Mass) / bodies.Sum(req => req.Mass),
+                Vy = bodies.Sum(req => BodyStates.First(b => b.Id == req.Id).Y * req.Mass) / bodies.Sum(req => req.Mass)
             };
+
+        public List<BodyState> BodyStates { private get; set; }
 
         public bool IsScaled => true;
 
