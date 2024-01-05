@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -44,6 +45,41 @@ namespace Physics
             }
 
             return answer;
+        }
+
+        public static List<string> GenerateIds(uint count)
+        {
+            List<string> ids = new List<string>();
+
+            StringBuilder id = new StringBuilder($"{alphabet[0]}");
+
+            for (uint i = 0; i < count; i++)
+            {
+                ids.Add(id.ToString());
+                Increment(id, id.Length - 1);
+            }
+
+            return ids;
+        }
+
+        private static void Increment(StringBuilder id, int index)
+        {
+            if (index < 0)
+            {
+                id.Insert(0, alphabet[0]);
+                return;
+            }
+
+            if (id[index] != alphabet[alphabet.Length - 1])
+            {
+                int k = alphabet.IndexOf(id[index]);
+                id[index] = alphabet[k + 1];
+            }
+            else
+            {
+                id[index] = alphabet[0];
+                Increment(id, index - 1);
+            }
         }
     }
 }

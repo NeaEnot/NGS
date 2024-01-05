@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Physics
 {
@@ -41,19 +42,26 @@ namespace Physics
 
         private void MoveBodies()
         {
+            double centerX = Bodies.Sum(x => x.X);
+            double centerY = Bodies.Sum(x => x.Y);
+
             foreach (Body body in Bodies)
             {
-                body.X += body.Velocity.Vx;
-                body.Y += body.Velocity.Vy;
+                body.X += body.Velocity.Vx - centerX;
+                body.Y += body.Velocity.Vy - centerY;
             }
         }
 
         private void UpdateVelocities()
         {
-            foreach (Body current in Bodies)
+            for (int i = 0; i < Bodies.Count; i++)
             {
-                foreach (Body body in Bodies)
+                Body current = Bodies[i];
+
+                for (int j = i + 1; j < Bodies.Count; j++)
                 {
+                    Body body = Bodies[j];
+
                     if (body == current)
                         continue;
 
@@ -69,8 +77,14 @@ namespace Physics
                         Vx = G * body.Mass / Math.Sqrt(r) * -cos,
                         Vy = G * body.Mass / Math.Sqrt(r) * -sin
                     };
+                    Vector b = new Vector
+                    {
+                        Vx = G * current.Mass / Math.Sqrt(r) * cos,
+                        Vy = G * current.Mass / Math.Sqrt(r) * sin
+                    };
 
                     current.Velocity += a;
+                    body.Velocity += b;
                 }
             }
         }

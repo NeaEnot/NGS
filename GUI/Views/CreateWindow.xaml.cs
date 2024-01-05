@@ -1,6 +1,8 @@
 ﻿using Physics;
 using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Documents;
 using Vector = Physics.Vector;
 
 namespace GUI.Views
@@ -90,6 +92,9 @@ namespace GUI.Views
                     double vMin = double.Parse(tbVMin.Text);
                     double vMax = double.Parse(tbVMax.Text);
 
+                    List<string> ids = IdHelper.GenerateIds(count);
+                    List<string> colors = BrightnessHelper.GenerateColors(brightnessMin, brightnessMax);
+
                     if (coordsRangeMin > coordsRangeMax || dMin > dMax || brightnessMin > brightnessMax || vMin > vMax)
                         throw new Exception("Минимальное значение не может быть больше максимального.");
 
@@ -108,11 +113,11 @@ namespace GUI.Views
                                 (uint)(uint.MaxValue - d * dependence) > massMin ? (uint)(uint.MaxValue - d * dependence) : massMin
                             :
                                 GenerateUint(uint.MinValue, uint.MaxValue);
-                        string color = GenerateColorHex(brightnessMin, brightnessMax);
+                        string color = colors[rnd.Next(colors.Count)];
 
                         Body body = new Body
                         {
-                            Id = idHelper.GetId(),
+                            Id = ids[(int)i], // WARNING
                             X = x,
                             Y = y,
                             Velocity = new Vector { Vx = vx, Vy = vy },
@@ -140,20 +145,6 @@ namespace GUI.Views
                 uint ui = (uint)new Random().Next(-int.MaxValue, int.MaxValue) % (max - min) + min;
                 if (ui >= min && ui < max)
                     return ui;
-            }
-        }
-
-        private string GenerateColorHex(ushort brightnessMin, ushort brightnessMax)
-        {
-            while (true)
-            {
-                string str = "#";
-                for (int i = 0; i < 6; i++)
-                    str += abc[rnd.Next(abc.Length)];
-
-                ushort brightness = BrightnessCalc.Calc(str);
-                if (brightness >= brightnessMin && brightness <= brightnessMax)
-                    return str;
             }
         }
     }
